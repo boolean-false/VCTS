@@ -1,0 +1,14 @@
+/// <reference path="api/types.d.ts" />
+/// <reference path="api/content.d.ts" />
+/// <reference path="api/files.d.ts" />
+/// <reference path="api/environment.d.ts" />
+/// <reference path="api/math.d.ts" />
+/// <reference path="api/generation.d.ts" />
+/// <reference path="api/canvas.d.ts" />
+// Общие API движка. Предусловия загрузки контента и мира зависят от вызова.
+/// <reference path="api/codecs.d.ts" />
+/// <reference path="api/crypto.d.ts" />
+/// <reference path="api/lua-extensions.d.ts" />
+/// <reference path="api/debug.d.ts" />
+/// <reference path="api/modules.d.ts" />
+/// <reference path="api/bytearray.d.ts" />

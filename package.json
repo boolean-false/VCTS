@@ -1,0 +1,38 @@
+{
+  "name": "@vcts/toolchain",
+  "private": true,
+  "description": "TypeScript SDK и инструменты разработки контент-паков и проектов для VoxelCore.",
+  "scripts": {
+    "check": "node tools/api/check-types.cjs",
+    "check:vc-loader": "node tools/check-vc-loader.cjs",
+    "build:modules": "node tools/build-modules.cjs",
+    "test:modules": "node --test tools/tests/vc-modules.test.cjs",
+    "api:inventory": "node tools/api/inventory.cjs",
+    "api:check": "node tools/api/check-types.cjs && node --test tools/tests/api-inventory.test.cjs tools/tests/network-wrappers.test.cjs",
+    "api:test": "node tools/api/test-engine.cjs",
+    "api:test:network": "node tools/api/test-network.cjs",
+    "api:test:generation": "node tools/api/test-generation.cjs",
+    "api:test:canvas": "node tools/api/test-canvas.cjs",
+    "vcts": "node tools/vcts.cjs",
+    "test": "node tools/test-all.cjs",
+    "api:test:author": "node tools/api/test-author.cjs",
+    "test:project": "node --test tools/tests/vcts-project.test.cjs",
+    "api:audit": "node tools/api/inventory.cjs --check",
+    "release:build": "node tools/release.cjs",
+    "release:check": "node tools/check-release.cjs"
+  },
+  "version": "1.0.0-beta.1",
+  "bin": {
+    "vcts": "tools/vcts.cjs"
+  },
+  "dependencies": {
+    "@typescript-to-lua/language-extensions": "1.19.0",
+    "typescript": "6.0.2",
+    "typescript-to-lua": "1.37.1",
+    "source-map": "0.7.6"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "license": "MIT"
+}
