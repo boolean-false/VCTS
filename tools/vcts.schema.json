@@ -93,6 +93,10 @@
                 },
                 "manifest": {
                   "type": "object"
+                },
+                "scope": {
+                  "const": "project",
+                  "description": "Модули в корне приложения вместо пака контента. ID должен быть project."
                 }
               },
               "additionalProperties": false
@@ -243,6 +247,35 @@
                   "type": "string"
                 },
                 "declaration": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "applications": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "kind",
+                "source"
+              ],
+              "properties": {
+                "kind": {
+                  "enum": [
+                    "start",
+                    "client",
+                    "module"
+                  ]
+                },
+                "source": {
+                  "type": "string"
+                },
+                "factory": {
+                  "type": "string"
+                },
+                "name": {
                   "type": "string"
                 }
               },

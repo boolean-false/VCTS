@@ -90,3 +90,5 @@ network.udp_connect("127.0.0.1",12345,data=>{
 network.__request("url",{});
 // @ts-expect-error network datagram handler is mandatory
 network.udp_open(12345);
+// @ts-expect-error Главное меню отсутствует в режиме без окна.
+menu.page;

@@ -6,7 +6,8 @@ const pattern=/(?:\[string ")?([A-Za-z_][A-Za-z0-9_]*):modules\/([A-Za-z0-9_./-]
 async function explain(log,outDir) {
   const replacements=await Promise.all([...log.matchAll(pattern)].map(async ([original,pack,module,line])=>{
     if(module.split('/').some(part=>part==='..'||part==='.'||!part))return original;
-    const lua=path.join(outDir,'content',pack,'modules',module),file=`${lua}.map`;
+    const projectModule=path.join(outDir,'modules',module);
+    const lua=pack==='project'&&fs.existsSync(projectModule)?projectModule:path.join(outDir,'content',pack,'modules',module),file=`${lua}.map`;
     if(!fs.existsSync(file)||!fs.existsSync(lua))return original;
     const map=JSON.parse(fs.readFileSync(file));
     const hash=crypto.createHash('sha256').update(fs.readFileSync(lua)).digest('hex');

@@ -182,3 +182,48 @@ test('adding multiple external modules preserves inherited editor aliases and re
   config.assets.at(-1).exclude=['../outside'];fs.writeFileSync(f.config,JSON.stringify(config));
   assert.throws(()=>buildProject(f.config),/Invalid asset exclude/);
  });
+
+test('project entry loads modules before content and receives the application API',async t=>{
+  const f=fixture(t,'game'),config=JSON.parse(fs.readFileSync(f.config));
+  const client=JSON.parse(fs.readFileSync(path.join(f.dir,'tsconfig.json')));
+  client.include=['vendor/sdk/client.d.ts','src/sample/**/*.ts'];
+  client.compilerOptions.paths={...client.compilerOptions.paths,'sample:service':['./src/sample/service.ts']};
+  fs.writeFileSync(path.join(f.dir,'tsconfig.json'),JSON.stringify(client));
+  fs.writeFileSync(path.join(f.dir,'app.tsconfig.json'),JSON.stringify({...client,include:['vendor/sdk/app-client.d.ts','src/project/**/*.ts']}));
+  const dir=path.join(f.dir,'src/project');fs.mkdirSync(dir,{recursive:true});
+  fs.writeFileSync(path.join(dir,'loading.ts'),'const values=[1,2,3]; export const sum=values.reduce((a,b)=>a+b,0);');
+  fs.writeFileSync(path.join(dir,'start.ts'),'import {sum} from "./loading"; export function run(this:void,application:typeof app):void { if(sum!==6)throw "loading"; application.tick();application.load_content();const service=vcts_load<typeof import("../sample/service")>("sample:service");if(service.value!==42)throw "service";application.quit();}');
+  fs.writeFileSync(path.join(dir,'client.ts'),'export function create(this:void){return {on_menu_setup:()=>{menu.visible=true;}};}');
+  fs.writeFileSync(path.join(f.dir,'src/sample/service.ts'),'export const value=42;');
+  config.assets=config.assets.filter(asset=>asset.to!=='start.lua');
+  config.units[0].packs[0].public=['service.ts'];
+  config.units.push({tsconfig:'app.tsconfig.json',packs:[{id:'project',scope:'project',root:'src/project',dependencies:['sample']},config.units[0].packs[0]],applications:[
+    {kind:'start',source:'src/project/start.ts',factory:'run'},{kind:'client',source:'src/project/client.ts',factory:'create'},{kind:'module',name:'loading',source:'src/project/loading.ts'}]});
+  fs.writeFileSync(f.config,JSON.stringify(config));
+  const result=buildProject(f.config);
+  assert(result.outputs.has('start.lua'));assert(result.outputs.has('project_client.lua'));assert(result.outputs.has('loading.lua'));
+  const startLine=result.outputs.get('modules/start.lua').split('\n').findIndex(line=>line.includes('throw')||line.includes('error('))+1;
+  assert((await explain(`[string \"project:modules/start.lua\"]:${startLine}: error`,result.outDir)).includes(path.join(dir,'start.ts')));
+  assert(result.outputs.has('modules/loading.lua.map'));assert(result.outputs.has('modules/__vcts_lualib.lua'));
+  assert(!result.outputs.has('content/project/package.json'));assert(!result.outputs.get('project.toml').includes('"project"'));
+  const {spawnSync}=require('node:child_process');
+  const engine=process.env.VC_SOURCES||'/Users/dartyukhov/Desktop/Projects/voxelcore-sources';
+  const source=fs.readFileSync(path.join(engine,'res/scripts/stdmin.lua'),'utf8');
+  const section=(start,end)=>source.slice(source.indexOf(start),source.indexOf(end,source.indexOf(start)+start.length));
+  const quote=value=>{let eq='';while(value.includes(`]${eq}]`))eq+='=';return `[${eq}[${value}]${eq}]`;};
+  const sources=[...result.outputs].filter(([name])=>name.endsWith('.lua')).map(([name,code])=>{
+    let id=`project:${name}`;
+    if(name.startsWith('content/')){const parts=name.slice(8).split('/');id=parts.shift()+':'+parts.join('/');}
+    return `sources[ ${quote(id)} ]=${quote(code)}`;
+  }).join('\n');
+  const lua=`local sources={}\n${sources}\nfile={isfile=function(p)return sources[p]~=nil end,read=function(p)return assert(sources[p],p)end}\n__vc_internals={}\nlocal packEnvs={}\n__vc__pack_envs=packEnvs\nlocal _debug_getinfo=debug.getinfo\n${section('function parse_path(path)','-- Lua has no parallelizm')}\n${section('package = {','function __vc_internals.register_compiler')}\n${section('local __internal_locked = false','function __scripts_cleanup')}\n`+
+    `local events={}\nlocal application={tick=function()events[#events+1]='tick'end,load_content=function()packEnvs.sample=setmetatable({},{__index=_G});events[#events+1]='load'end,quit=function()events[#events+1]='quit'end}\n`+
+    `local script=assert(loadstring(sources['project:start.lua']));setfenv(script,setmetatable({app=application},{__index=_G}));script();assert(table.concat(events,',')=='tick,load,quit');assert(app==nil);assert(require('project:loading').sum==6);assert(assert(loadstring(sources['project:loading.lua']))()==require('project:loading'));menu={visible=false};assert(loadstring(sources['project:project_client.lua']))();on_menu_setup();assert(menu.visible);`;
+  const run=spawnSync(process.env.LUAJIT||'luajit',['-'],{input:lua,encoding:'utf8'});
+  assert.equal(run.status,0,run.stderr);
+  const startFile=path.join(dir,'start.ts'),startSource=fs.readFileSync(startFile,'utf8');
+  fs.appendFileSync(startFile,'\napp.tick();');assert.throws(()=>buildProject(f.config),/Передайте его в TS-фабрику/);fs.writeFileSync(startFile,startSource);
+  config.packOutDirs.project=path.join(os.tmpdir(),'invalid-project-deploy');fs.writeFileSync(f.config,JSON.stringify(config));
+  assert.throws(()=>buildProject(f.config),/cannot be deployed/);
+  delete config.packOutDirs.project;config.kind='mod';fs.writeFileSync(f.config,JSON.stringify(config));assert.throws(()=>buildProject(f.config),/Project scope requires game/);
+});

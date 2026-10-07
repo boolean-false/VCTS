@@ -84,6 +84,13 @@ function buildModules(configPath, override) {
   for (const source of program.getSourceFiles().filter(file => !file.isDeclarationFile)) {
     owner(source.fileName);
     const visit = node => {
+      if(ts.isIdentifier(node)&&node.text==='app') {
+        const symbol=checker.getSymbolAtLocation(node);
+        const applicationGlobal=symbol?.declarations?.some(declaration=>declaration.getSourceFile().isDeclarationFile&&/\/api\/app(?:-client)?\.d\.ts$/.test(slash(declaration.getSourceFile().fileName)));
+        let parent=node.parent,typeOnly=false;
+        while(parent&&!ts.isStatement(parent)) {if(ts.isTypeNode(parent))typeOnly=true;parent=parent.parent;}
+        if(applicationGlobal&&!typeOnly)fail(`${source.fileName}: API app доступен в скрипте запуска. Передайте его в TS-фабрику и используйте параметр.`);
+      }
       if(ts.isForStatement(node)&&node.initializer&&ts.isVariableDeclarationList(node.initializer)&&(node.initializer.flags&ts.NodeFlags.Let)) {
         const variables=new Set();
         const collect=name=>{
@@ -310,6 +317,24 @@ function buildModules(configPath, override) {
       `for key,value in pairs(callbacks) do\n` +
       `  assert(type(key)=="string" and key:sub(1,2)~="__" and key~="document" and key~="DOC_ENV" and type(value)=="function", "invalid layout handler")\n` +
       `  env[key]=value\nend\n`);
+  }
+  for(const entry of config.applications||[]) {
+    if(!['start','client','module'].includes(entry.kind))fail(`Invalid application kind: ${entry.kind}`);
+    const target=owner(fs.realpathSync(path.resolve(root,entry.source)));
+    if(target.pack.id!=='project'||target.pack.scope!=='project')fail('Application source requires project scope');
+    const name=entry.kind==='start'?'start.lua':entry.kind==='client'?'project_client.lua':`${entry.name}.lua`;
+    if(entry.kind==='module'&&(!/^[a-zA-Z_][a-zA-Z0-9_-]*$/.test(entry.name||'')||['start','project_client'].includes(entry.name)))fail('Invalid project module entry name');
+    const output=`project/${name}`;
+    if([...outputs.keys()].some(key=>key.toLowerCase()===output.toLowerCase()))fail(`Output collision: ${output}`);
+    if(!graph.has(target.key))fail(`Application module was not emitted: ${target.key}`);
+    if(entry.kind==='module')outputs.set(output,`-- Совместимый вход в модуль приложения.\nreturn require(${JSON.stringify(target.key)})\n`);
+    else {
+      resolveFactory({...entry,id:`project:${entry.kind}`},'Application');
+      if(entry.kind==='start')outputs.set(output,`-- Запуск приложения с API текущего скрипта.\nrequire(${JSON.stringify(target.key)})[${JSON.stringify(entry.factory)}](app)\n`);
+      else outputs.set(output,`-- Обработчики проекта.\nlocal callbacks=require(${JSON.stringify(target.key)})[${JSON.stringify(entry.factory)}]()\n`+
+        `assert(type(callbacks)=="table", "project factory must return a table")\nlocal env=getfenv(1)\n`+
+        `for key,value in pairs(callbacks) do\n  assert(type(key)=="string" and key:sub(1,2)~="__" and key~="app" and type(value)=="function", "invalid project handler")\n  env[key]=value\nend\n`);
+    }
   }
   for (const pack of packs) {
     if (features.get(pack.id).size > 0) {

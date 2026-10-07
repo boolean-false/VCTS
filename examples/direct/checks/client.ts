@@ -15,3 +15,4 @@ const layoutCallbacks:VC.LayoutCallbacks={on_progress:(done,total)=>{ui.title.te
 const badLayout:VC.LayoutCallbacks={on_update:()=>{}};
 // @ts-expect-error identity is read-only
 ui.title.id="new";
+const menuPage: string | undefined = menu.page;

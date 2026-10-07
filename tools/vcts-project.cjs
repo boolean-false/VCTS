@@ -27,6 +27,13 @@ function buildProject(configFile,{write=true,deploy=true,sourceOverrides=[]}={})
   if(external.dependencies.some(pack=>overlaps(physicalPath(outDir),physicalPath(pack.dir))))throw new Error('Build output overlaps an external dependency');
   if(outDir===root||inside(outDir,root))throw new Error('Output must not contain the source project');
   const outputs=new Map(),folded=new Set(),packs=new Map(),features=new Map(),watchFiles=new Set([configFile,...external.files]),modules=new Map();
+  const projectPack=config.units.flatMap(unit=>unit.packs||[]).find(pack=>pack.scope==='project');
+  for(const unit of config.units)for(const pack of unit.packs||[]) {
+    if(pack.scope!==undefined && pack.scope!=='project')throw new Error(`Invalid pack scope: ${pack.id}`);
+    if(pack.scope==='project' && (config.kind!=='game'||pack.id!=='project'))throw new Error('Project scope requires game kind and project ID');
+    if(pack.id==='project' && projectPack && pack.scope!=='project')throw new Error('Project module ID conflicts with a content pack');
+  }
+  const outputName=file=>projectPack&&file.startsWith('project/')?file.slice('project/'.length):`content/${file}`;
   function add(name,value) {
     if(!portable(name)||folded.has(name.toLowerCase()))throw new Error(`Invalid/duplicate output: ${name}`);
     folded.add(name.toLowerCase());outputs.set(name,value);
@@ -46,13 +53,14 @@ function buildProject(configFile,{write=true,deploy=true,sourceOverrides=[]}={})
     }
     for(const [file,code] of result.outputs) {
       if(file.endsWith('/modules/__vcts_lualib.lua'))continue;
-      const name=`content/${file}`;
+      const name=outputName(file);
       if(outputs.has(name)&&outputs.get(name)===code)continue;
       add(name,code);
     }
   }
-  for(const [id,set] of features)if(set.size)add(`content/${id}/modules/__vcts_lualib.lua`,buildMinimalLualibBundle(set,tstl.LuaTarget.LuaJIT,ts.sys));
+  for(const [id,set] of features)if(set.size)add(outputName(`${id}/modules/__vcts_lualib.lua`),buildMinimalLualibBundle(set,tstl.LuaTarget.LuaJIT,ts.sys));
   for(const [id,pack] of packs) {
+    if(pack.scope==='project')continue;
     const manifest={id,title:id,version:'0.1.0',creator:'VCTS',dependencies:[...(pack.dependencies||[])],...pack.manifest};
     if(manifest.id!==id)throw new Error(`Manifest ID mismatch: ${id}`);
     add(`content/${id}/package.json`,JSON.stringify(manifest,null,2)+'\n');
@@ -76,17 +84,18 @@ function buildProject(configFile,{write=true,deploy=true,sourceOverrides=[]}={})
     const project=config.project||{};
     const name=project.name||'vcts_project';
     if(!/^[a-zA-Z0-9_-]+$/.test(name))throw new Error('Portable project.name required');
-    const basePacks=project.basePacks||['base',...packs.keys()];
+    const basePacks=project.basePacks||['base',...[...packs.values()].filter(pack=>pack.scope!=='project').map(pack=>pack.id)];
     if(!Array.isArray(basePacks)||basePacks.some(p=>typeof p!=='string'))throw new Error('project.basePacks must be string array');
     add('project.toml',`name=${JSON.stringify(name)}\ntitle=${JSON.stringify(project.title||name)}\nbase_packs=${JSON.stringify([...new Set([...basePacks,...external.dependencies.map(p=>p.id)])])}\npermissions=${JSON.stringify(project.permissions||[])}\n`);
   }
-  const index={schemaVersion:1,kind:config.kind,units:config.units.map(unit=>({tsconfig:unit.tsconfig,entries:[...(unit.scripts||[]),...(unit.components||[]),...(unit.generators||[]),...(unit.layouts||[])]})),dependencies:external.dependencies.map(p=>({id:p.id,path:p.dir,version:p.manifest.version,modules:p.modules.map(m=>({id:m.id,declaration:m.declaration,apiVersion:m.apiVersion}))})),modules:[...modules.values()].sort((a,b)=>a.id.localeCompare(b.id))};
+  const index={schemaVersion:1,kind:config.kind,units:config.units.map(unit=>({tsconfig:unit.tsconfig,entries:[...(unit.scripts||[]),...(unit.components||[]),...(unit.generators||[]),...(unit.layouts||[]),...(unit.applications||[])]})),dependencies:external.dependencies.map(p=>({id:p.id,path:p.dir,version:p.manifest.version,modules:p.modules.map(m=>({id:m.id,declaration:m.declaration,apiVersion:m.apiVersion}))})),modules:[...modules.values()].sort((a,b)=>a.id.localeCompare(b.id))};
   add('project-index.json',JSON.stringify(index,null,2)+'\n');
   const destinations=config.packOutDirs===undefined?{}:config.packOutDirs;
   if(!destinations||typeof destinations!=='object'||Array.isArray(destinations))throw new Error('packOutDirs must map pack IDs to destination directories');
   const deployments=[];
   for(const [id,target] of Object.entries(destinations)) {
     if(!packs.has(id))throw new Error(`Unknown pack in packOutDirs: ${id}`);
+    if(packs.get(id).scope==='project')throw new Error('Project modules cannot be deployed as a content pack');
     if(typeof target!=='string'||!target.trim())throw new Error(`Invalid pack destination: ${id}`);
     if(/^Users\//.test(target))throw new Error(`Pack ${id}: path starts with Users/. Did you mean /Users/?`);
     const dir=path.resolve(root,target),real=physicalPath(dir),projectRoot=physicalPath(root);

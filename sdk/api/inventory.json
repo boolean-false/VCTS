@@ -867,7 +867,7 @@
             "line": 340,
             "declaration": {
               "file": "sdk/api/ui.d.ts",
-              "line": 62,
+              "line": 64,
               "signatures": [
                 "create_texture(this: Canvas, name: string): void;"
               ]
@@ -3469,7 +3469,7 @@
         "line": 838,
         "declaration": {
           "file": "sdk/api/ui.d.ts",
-          "line": 57,
+          "line": 59,
           "signatures": [
             "on_open?(this: void, ...args: OpenArgs): void;"
           ]
@@ -3481,7 +3481,7 @@
         "line": 839,
         "declaration": {
           "file": "sdk/api/ui.d.ts",
-          "line": 59,
+          "line": 61,
           "signatures": [
             "on_progress?(this: void, done: number, total: number): void;"
           ]
@@ -3493,7 +3493,7 @@
         "line": 840,
         "declaration": {
           "file": "sdk/api/ui.d.ts",
-          "line": 58,
+          "line": 60,
           "signatures": [
             "on_close?(this: void, inventory: number): void;"
           ]
@@ -3505,7 +3505,7 @@
         "line": 841,
         "declaration": {
           "file": "sdk/api/ui.d.ts",
-          "line": 60,
+          "line": 62,
           "signatures": [
             "on_destroy?(this: void): void;"
           ]
@@ -11065,7 +11065,7 @@
       },
       "declaration": {
         "file": "sdk/api/ui.d.ts",
-        "line": 78,
+        "line": 80,
         "signatures": [
           "function alert(this: void, text: string, onClose?: (this:void)=>void): void;"
         ]
@@ -11082,7 +11082,7 @@
       },
       "declaration": {
         "file": "sdk/api/ui.d.ts",
-        "line": 81,
+        "line": 83,
         "signatures": [
           "function ask(this: void, text: string, onConfirm?: (this:void)=>void, onDeny?: (this:void)=>void, yesText?:string, noText?:string): void;"
         ]
@@ -11104,7 +11104,7 @@
       },
       "declaration": {
         "file": "sdk/api/ui.d.ts",
-        "line": 75,
+        "line": 77,
         "signatures": [
           "function clear_markup(this: void, language: string, text: string): string;"
         ]
@@ -11121,7 +11121,7 @@
       },
       "declaration": {
         "file": "sdk/api/ui.d.ts",
-        "line": 65,
+        "line": 67,
         "signatures": [
           "function close_menu(this: void): void;"
         ]
@@ -11143,7 +11143,7 @@
       },
       "declaration": {
         "file": "sdk/api/ui.d.ts",
-        "line": 77,
+        "line": 79,
         "signatures": [
           "function confirm(this: void, text: string, onConfirm?: (this:void)=>void, onDeny?: (this:void)=>void, yesText?:string, noText?:string): void;"
         ]
@@ -11169,7 +11169,7 @@
       },
       "declaration": {
         "file": "sdk/api/ui.d.ts",
-        "line": 86,
+        "line": 88,
         "signatures": [
           "function create_frame(this: void, id: string, outputTexture: string, size: VC.Vec2): void;"
         ]
@@ -11191,7 +11191,7 @@
       },
       "declaration": {
         "file": "sdk/api/ui.d.ts",
-        "line": 76,
+        "line": 78,
         "signatures": [
           "function escape_markup(this: void, language: string, text: string): string;"
         ]
@@ -11213,7 +11213,7 @@
       },
       "declaration": {
         "file": "sdk/api/ui.d.ts",
-        "line": 88,
+        "line": 90,
         "signatures": [
           "function get_active_frame(this: void): string | undefined;"
         ]
@@ -11235,7 +11235,7 @@
       },
       "declaration": {
         "file": "sdk/api/ui.d.ts",
-        "line": 71,
+        "line": 73,
         "signatures": [
           "function get_env(this: void, document: string): VC.UIData;"
         ]
@@ -11257,7 +11257,7 @@
       },
       "declaration": {
         "file": "sdk/api/ui.d.ts",
-        "line": 73,
+        "line": 75,
         "signatures": [
           "function get_locales_info(this: void): Record<string,{name:string}>;"
         ]
@@ -11279,7 +11279,7 @@
       },
       "declaration": {
         "file": "sdk/api/ui.d.ts",
-        "line": 74,
+        "line": 76,
         "signatures": [
           "function get_viewport(this: void): VC.Vec2;"
         ]
@@ -11301,7 +11301,7 @@
       },
       "declaration": {
         "file": "sdk/api/ui.d.ts",
-        "line": 67,
+        "line": 69,
         "signatures": [
           "function getattr<K extends keyof VC.UIAttributes>(this: void, document: string, element: string, attribute: K): VC.UIAttributes[K];",
           "function getattr(this: void, document: string, element: string, child: number): VC.UIElement | undefined;"
@@ -11324,7 +11324,7 @@
       },
       "declaration": {
         "file": "sdk/api/ui.d.ts",
-        "line": 82,
+        "line": 84,
         "signatures": [
           "function load_document(this: void, path: string, name: string, args: VC.Value, extension?: VC.UIData): VC.UIData;"
         ]
@@ -11341,7 +11341,7 @@
       },
       "declaration": {
         "file": "sdk/api/ui.d.ts",
-        "line": 84,
+        "line": 86,
         "signatures": [
           "function process_template(this: void, source: string, parameters: VC.UIData): string;"
         ]
@@ -11363,7 +11363,7 @@
       },
       "declaration": {
         "file": "sdk/api/ui.d.ts",
-        "line": 89,
+        "line": 91,
         "signatures": [
           "function screenshot(this: void, frameId?: string): VC.Canvas | undefined;"
         ]
@@ -11385,7 +11385,7 @@
       },
       "declaration": {
         "file": "sdk/api/ui.d.ts",
-        "line": 87,
+        "line": 89,
         "signatures": [
           "function set_active_frame(this: void, id: string, cursorLocator?: (this:void)=>LuaMultiReturn<[number,number]>): void;"
         ]
@@ -11407,7 +11407,7 @@
       },
       "declaration": {
         "file": "sdk/api/ui.d.ts",
-        "line": 90,
+        "line": 92,
         "signatures": [
           "function set_syntax_styles(this: void, scheme: VC.ObjectValue): void;"
         ]
@@ -11429,7 +11429,7 @@
       },
       "declaration": {
         "file": "sdk/api/ui.d.ts",
-        "line": 70,
+        "line": 72,
         "signatures": [
           "function setattr<K extends keyof VC.UIWritableAttributes>(this: void, document: string, element: string, attribute: K, value: VC.UIWritableAttributes[K]): void;"
         ]
@@ -11446,7 +11446,7 @@
       },
       "declaration": {
         "file": "sdk/api/ui.d.ts",
-        "line": 80,
+        "line": 82,
         "signatures": [
           "function show_input_dialog(this: void, text: string, onConfirm?: (this:void,value:string)=>void, validator?: (this:void,value:string)=>boolean, confirmText?:string): void;"
         ]
@@ -11463,7 +11463,7 @@
       },
       "declaration": {
         "file": "sdk/api/ui.d.ts",
-        "line": 79,
+        "line": 81,
         "signatures": [
           "function show_message(this: void, text: string, onClose?: (this:void)=>void): void;"
         ]
@@ -11485,7 +11485,7 @@
       },
       "declaration": {
         "file": "sdk/api/ui.d.ts",
-        "line": 72,
+        "line": 74,
         "signatures": [
           "function str(this: void, text: string, context?: string): string;"
         ]
@@ -11502,7 +11502,7 @@
       },
       "declaration": {
         "file": "sdk/api/ui.d.ts",
-        "line": 83,
+        "line": 85,
         "signatures": [
           "function template(this: void, name: string, parameters: VC.UIData): string;"
         ]

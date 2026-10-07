@@ -1,4 +1,6 @@
 /// <reference path="canvas.d.ts" />
+/** Элемент core:root/menu из res/scripts/stdlib.lua. */
+declare const menu: VC.UIElement;
 declare namespace VC {
   type UIData = Record<string, unknown>;
   interface UIAttributes {
