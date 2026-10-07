@@ -339,3 +339,16 @@ test('общий счётчик и затенение имени сохраня�
   const result=f.build();
   runInVcLoader(result.outputs,"local m=require('energy:loops');local a=m.shared();assert(a[1]==3 and a[2]==3 and a[3]==3);local b=m.shadow();assert(b[1]==7 and b[3]==7)");
 });
+
+test('объявления через запятую вычисляются последовательно',t=>{
+  const f=fixture(t);
+  f.write('energy/sequence.ts',`export const first=2, second=first>0?first+1:0;
+    export function run(){
+      const i=1,row=i<=2?i+1:0,[a,b]=[row,3],sum=a>0?a+b:0;
+      let value=1,next=value++>0?value:0;
+      const [fallback=3]=[],last=fallback>0?fallback:0;
+      return {i,row,sum,value,next,last};
+    }`);
+  const result=f.build();
+  runInVcLoader(result.outputs,"local m=require('energy:sequence');assert(m.first==2 and m.second==3);local r=m.run();assert(r.i==1 and r.row==2 and r.sum==5 and r.value==2 and r.next==2 and r.last==3)");
+});

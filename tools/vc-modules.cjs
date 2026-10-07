@@ -151,6 +151,15 @@ function buildModules(configPath, override) {
   }
   const cache = ts.createModuleResolutionCache(root, file => file, options);
   const plugin = {
+    visitors: {
+      [ts.SyntaxKind.VariableStatement]: (node,context) => {
+        if(node.declarationList.declarations.length<2)return context.superTransformNode(node);
+        // Временные вычисления следующей переменной должны идти после предыдущего объявления.
+        return node.declarationList.declarations.flatMap(declaration=>context.transformStatements(
+          ts.factory.updateVariableStatement(node,node.modifiers,
+            ts.factory.updateVariableDeclarationList(node.declarationList,[declaration]))));
+      },
+    },
     printer(currentProgram, host, filename, luaFile) {
       const current = owner(filename);
       graph.set(current.key, new Set());
