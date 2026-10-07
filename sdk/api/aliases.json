@@ -118,5 +118,11 @@
     "context": "all-states",
     "file": "src/logic/scripting/lua/lua_engine.cpp",
     "anchor": "setfield(L, \"PCMStream\");"
+  },
+  {
+    "id": "animation.get_track",
+    "context": "client",
+    "file": "res/modules/animation.lua",
+    "anchor": "function this.get_track(identifier)"
   }
 ]

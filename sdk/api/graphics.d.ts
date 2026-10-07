@@ -1,6 +1,10 @@
 /// <reference path="math.d.ts" />
 /// <reference path="canvas.d.ts" />
 declare namespace VC {
+  interface AnimationTrack<T> {
+    duration: number;
+    func(this: void, target: T, time: number, intensity?: number, multiplier?: number): void;
+  }
   interface NotePreset {display?:string;color?:Vec4;scale?:number;render_distance?:number;xray_opacity?:number;perspective?:boolean;font?:string;}
   interface ParticlesPreset {
     texture?:string;frames?:string[];collision?:boolean;lighting?:boolean;global_up_vector?:boolean;
@@ -23,6 +27,10 @@ declare namespace VC {
     get_text(this:Text3D):string|undefined;set_text(this:Text3D,value:string):void;
     update_settings(this:Text3D,preset:NotePreset):void;
   }
+}
+/** res/modules/animation.lua и internal/animation_codegen.lua. */
+declare namespace animation {
+  function get_track<T>(this: void, identifier: string): VC.AnimationTrack<T> | undefined;
 }
 /** Graphical assets required. */
 declare namespace assets {

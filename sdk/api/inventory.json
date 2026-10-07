@@ -2308,7 +2308,7 @@
         "line": 2,
         "declaration": {
           "file": "sdk/api/graphics.d.ts",
-          "line": 18,
+          "line": 22,
           "signatures": [
             "hide(this:Text3D):void;"
           ]
@@ -2320,7 +2320,7 @@
         "line": 3,
         "declaration": {
           "file": "sdk/api/graphics.d.ts",
-          "line": 19,
+          "line": 23,
           "signatures": [
             "get_pos(this:Text3D):Vec3|undefined;"
           ]
@@ -2332,7 +2332,7 @@
         "line": 4,
         "declaration": {
           "file": "sdk/api/graphics.d.ts",
-          "line": 19,
+          "line": 23,
           "signatures": [
             "set_pos(this:Text3D,value:Vec3):void;"
           ]
@@ -2344,7 +2344,7 @@
         "line": 5,
         "declaration": {
           "file": "sdk/api/graphics.d.ts",
-          "line": 20,
+          "line": 24,
           "signatures": [
             "get_axis_x(this:Text3D):Vec3|undefined;"
           ]
@@ -2356,7 +2356,7 @@
         "line": 6,
         "declaration": {
           "file": "sdk/api/graphics.d.ts",
-          "line": 20,
+          "line": 24,
           "signatures": [
             "set_axis_x(this:Text3D,value:Vec3):void;"
           ]
@@ -2368,7 +2368,7 @@
         "line": 7,
         "declaration": {
           "file": "sdk/api/graphics.d.ts",
-          "line": 21,
+          "line": 25,
           "signatures": [
             "get_axis_y(this:Text3D):Vec3|undefined;"
           ]
@@ -2380,7 +2380,7 @@
         "line": 8,
         "declaration": {
           "file": "sdk/api/graphics.d.ts",
-          "line": 21,
+          "line": 25,
           "signatures": [
             "set_axis_y(this:Text3D,value:Vec3):void;"
           ]
@@ -2392,7 +2392,7 @@
         "line": 9,
         "declaration": {
           "file": "sdk/api/graphics.d.ts",
-          "line": 22,
+          "line": 26,
           "signatures": [
             "set_rotation(this:Text3D,value:Mat4):void;"
           ]
@@ -2404,7 +2404,7 @@
         "line": 10,
         "declaration": {
           "file": "sdk/api/graphics.d.ts",
-          "line": 23,
+          "line": 27,
           "signatures": [
             "get_text(this:Text3D):string|undefined;"
           ]
@@ -2416,7 +2416,7 @@
         "line": 11,
         "declaration": {
           "file": "sdk/api/graphics.d.ts",
-          "line": 23,
+          "line": 27,
           "signatures": [
             "set_text(this:Text3D,value:string):void;"
           ]
@@ -2428,7 +2428,7 @@
         "line": 12,
         "declaration": {
           "file": "sdk/api/graphics.d.ts",
-          "line": 24,
+          "line": 28,
           "signatures": [
             "update_settings(this:Text3D,preset:NotePreset):void;"
           ]
@@ -2440,7 +2440,7 @@
         "line": 16,
         "declaration": {
           "file": "sdk/api/graphics.d.ts",
-          "line": 91,
+          "line": 99,
           "signatures": [
             "index(this:NamedSkeleton,bone:string):number|undefined;"
           ]
@@ -2452,7 +2452,7 @@
         "line": 17,
         "declaration": {
           "file": "sdk/api/graphics.d.ts",
-          "line": 92,
+          "line": 100,
           "signatures": [
             "get_model(this:NamedSkeleton,bone:number):string|undefined;"
           ]
@@ -2464,7 +2464,7 @@
         "line": 18,
         "declaration": {
           "file": "sdk/api/graphics.d.ts",
-          "line": 93,
+          "line": 101,
           "signatures": [
             "set_model(this:NamedSkeleton,bone:number,model:string|undefined):void;"
           ]
@@ -2476,7 +2476,7 @@
         "line": 19,
         "declaration": {
           "file": "sdk/api/graphics.d.ts",
-          "line": 94,
+          "line": 102,
           "signatures": [
             "get_matrix(this:NamedSkeleton,bone:number):Mat4|undefined;"
           ]
@@ -2488,7 +2488,7 @@
         "line": 20,
         "declaration": {
           "file": "sdk/api/graphics.d.ts",
-          "line": 95,
+          "line": 103,
           "signatures": [
             "set_matrix(this:NamedSkeleton,bone:number,matrix:Mat4):void;"
           ]
@@ -2500,7 +2500,7 @@
         "line": 21,
         "declaration": {
           "file": "sdk/api/graphics.d.ts",
-          "line": 96,
+          "line": 104,
           "signatures": [
             "get_texture(this:NamedSkeleton,bone:string):string|undefined;"
           ]
@@ -2512,7 +2512,7 @@
         "line": 22,
         "declaration": {
           "file": "sdk/api/graphics.d.ts",
-          "line": 97,
+          "line": 105,
           "signatures": [
             "set_texture(this:NamedSkeleton,bone:string,texture:string):void;"
           ]
@@ -2524,7 +2524,7 @@
         "line": 23,
         "declaration": {
           "file": "sdk/api/graphics.d.ts",
-          "line": 98,
+          "line": 106,
           "signatures": [
             "is_visible(this:NamedSkeleton,bone:number):boolean|undefined;"
           ]
@@ -2536,7 +2536,7 @@
         "line": 24,
         "declaration": {
           "file": "sdk/api/graphics.d.ts",
-          "line": 99,
+          "line": 107,
           "signatures": [
             "set_visible(this:NamedSkeleton,bone:number,visible:boolean):void;"
           ]
@@ -2548,7 +2548,7 @@
         "line": 25,
         "declaration": {
           "file": "sdk/api/graphics.d.ts",
-          "line": 100,
+          "line": 108,
           "signatures": [
             "get_color(this:NamedSkeleton,bone:number):Vec4|undefined;"
           ]
@@ -2560,7 +2560,7 @@
         "line": 26,
         "declaration": {
           "file": "sdk/api/graphics.d.ts",
-          "line": 102,
+          "line": 110,
           "signatures": [
             "set_color(this:NamedSkeleton,bone:number,color:Vec4):void;"
           ]
@@ -4283,6 +4283,25 @@
       "declaration": null
     },
     {
+      "id": "animation.get_track",
+      "context": "client",
+      "file": "res/modules/animation.lua",
+      "anchor": "function this.get_track(identifier)",
+      "namespace": "animation",
+      "internal": false,
+      "lua": {
+        "file": "res/modules/animation.lua",
+        "line": 70
+      },
+      "declaration": {
+        "file": "sdk/api/graphics.d.ts",
+        "line": 33,
+        "signatures": [
+          "function get_track<T>(this: void, identifier: string): VC.AnimationTrack<T> | undefined;"
+        ]
+      }
+    },
+    {
       "id": "app.close_world",
       "namespace": "app",
       "context": "app-script",
@@ -5028,7 +5047,7 @@
       },
       "declaration": {
         "file": "sdk/api/graphics.d.ts",
-        "line": 30,
+        "line": 38,
         "signatures": [
           "function load_texture(this:void,bytes:VC.Bytearray|number[],alias:string,format?:\"png\"):void;"
         ]
@@ -5050,7 +5069,7 @@
       },
       "declaration": {
         "file": "sdk/api/graphics.d.ts",
-        "line": 31,
+        "line": 39,
         "signatures": [
           "function parse_animation(this:void,format:\"vca\",source:string,name:string):void;"
         ]
@@ -5072,7 +5091,7 @@
       },
       "declaration": {
         "file": "sdk/api/graphics.d.ts",
-        "line": 32,
+        "line": 40,
         "signatures": [
           "function parse_model(this:void,format:\"obj\"|\"xml\"|\"vcm\",source:string,name:string,skeleton?:string):void;"
         ]
@@ -5094,7 +5113,7 @@
       },
       "declaration": {
         "file": "sdk/api/graphics.d.ts",
-        "line": 29,
+        "line": 37,
         "signatures": [
           "function request_texture(this:void,path:string,alias:string):void;"
         ]
@@ -5116,7 +5135,7 @@
       },
       "declaration": {
         "file": "sdk/api/graphics.d.ts",
-        "line": 33,
+        "line": 41,
         "signatures": [
           "function to_canvas(this:void,alias:string):VC.Canvas|undefined;"
         ]
@@ -10182,7 +10201,7 @@
       },
       "declaration": {
         "file": "sdk/api/graphics.d.ts",
-        "line": 48,
+        "line": 56,
         "signatures": [
           "function set_faces(this:void,id:number,...faces:[string?,string?,string?,string?,string?,string?]):void;"
         ]
@@ -10204,7 +10223,7 @@
       },
       "declaration": {
         "file": "sdk/api/graphics.d.ts",
-        "line": 46,
+        "line": 54,
         "signatures": [
           "function set_pos(this:void,id:number,position:VC.Vec3):void;"
         ]
@@ -10226,7 +10245,7 @@
       },
       "declaration": {
         "file": "sdk/api/graphics.d.ts",
-        "line": 47,
+        "line": 55,
         "signatures": [
           "function set_texture(this:void,id:number,texture:string):void;"
         ]
@@ -10248,7 +10267,7 @@
       },
       "declaration": {
         "file": "sdk/api/graphics.d.ts",
-        "line": 49,
+        "line": 57,
         "signatures": [
           "function set_tints(this:void,id:number,...faces:[(VC.Vec3|VC.Vec4)?,(VC.Vec3|VC.Vec4)?,(VC.Vec3|VC.Vec4)?,(VC.Vec3|VC.Vec4)?,(VC.Vec3|VC.Vec4)?,(VC.Vec3|VC.Vec4)?]):void;"
         ]
@@ -10270,7 +10289,7 @@
       },
       "declaration": {
         "file": "sdk/api/graphics.d.ts",
-        "line": 45,
+        "line": 53,
         "signatures": [
           "function unwrap(this:void,id:number):void;"
         ]
@@ -10292,7 +10311,7 @@
       },
       "declaration": {
         "file": "sdk/api/graphics.d.ts",
-        "line": 44,
+        "line": 52,
         "signatures": [
           "function wrap(this:void,position:VC.Vec3,texture:string,emission?:number,tint?:VC.Vec3|VC.Vec4):number;"
         ]
@@ -10314,7 +10333,7 @@
       },
       "declaration": {
         "file": "sdk/api/graphics.d.ts",
-        "line": 37,
+        "line": 45,
         "signatures": [
           "function emit(this:void,origin:VC.Vec3|number,count:number,preset:VC.ParticlesPreset,extension?:VC.ParticlesPreset):number;"
         ]
@@ -10336,7 +10355,7 @@
       },
       "declaration": {
         "file": "sdk/api/graphics.d.ts",
-        "line": 40,
+        "line": 48,
         "signatures": [
           "function get_origin(this:void,id:number):VC.Vec3|number|undefined;"
         ]
@@ -10358,7 +10377,7 @@
       },
       "declaration": {
         "file": "sdk/api/graphics.d.ts",
-        "line": 39,
+        "line": 47,
         "signatures": [
           "function is_alive(this:void,id:number):boolean;"
         ]
@@ -10380,7 +10399,7 @@
       },
       "declaration": {
         "file": "sdk/api/graphics.d.ts",
-        "line": 41,
+        "line": 49,
         "signatures": [
           "function set_origin(this:void,id:number,origin:VC.Vec3|number):void;"
         ]
@@ -10402,7 +10421,7 @@
       },
       "declaration": {
         "file": "sdk/api/graphics.d.ts",
-        "line": 38,
+        "line": 46,
         "signatures": [
           "function stop(this:void,id:number):void;"
         ]
@@ -10424,7 +10443,7 @@
       },
       "declaration": {
         "file": "sdk/api/graphics.d.ts",
-        "line": 54,
+        "line": 62,
         "signatures": [
           "function get_intensity(this:void,index:number):number;"
         ]
@@ -10446,7 +10465,7 @@
       },
       "declaration": {
         "file": "sdk/api/graphics.d.ts",
-        "line": 52,
+        "line": 60,
         "signatures": [
           "function index(this:void,name:string):number;"
         ]
@@ -10468,7 +10487,7 @@
       },
       "declaration": {
         "file": "sdk/api/graphics.d.ts",
-        "line": 56,
+        "line": 64,
         "signatures": [
           "function is_active(this:void,index:number):boolean;"
         ]
@@ -10490,7 +10509,7 @@
       },
       "declaration": {
         "file": "sdk/api/graphics.d.ts",
-        "line": 58,
+        "line": 66,
         "signatures": [
           "function set_array(this:void,index:number,name:string,data:VC.Bytearray):void;"
         ]
@@ -10512,7 +10531,7 @@
       },
       "declaration": {
         "file": "sdk/api/graphics.d.ts",
-        "line": 53,
+        "line": 61,
         "signatures": [
           "function set_effect(this:void,index:number,name:string):void;"
         ]
@@ -10534,7 +10553,7 @@
       },
       "declaration": {
         "file": "sdk/api/graphics.d.ts",
-        "line": 55,
+        "line": 63,
         "signatures": [
           "function set_intensity(this:void,index:number,value:number):void;"
         ]
@@ -10556,7 +10575,7 @@
       },
       "declaration": {
         "file": "sdk/api/graphics.d.ts",
-        "line": 57,
+        "line": 65,
         "signatures": [
           "function set_params(this:void,index:number,parameters:VC.ObjectValue):void;"
         ]
@@ -10573,7 +10592,7 @@
       },
       "declaration": {
         "file": "sdk/api/graphics.d.ts",
-        "line": 105,
+        "line": 113,
         "signatures": [
           "function get(this:void,name:string):VC.NamedSkeleton|undefined;"
         ]
@@ -10595,7 +10614,7 @@
       },
       "declaration": {
         "file": "sdk/api/graphics.d.ts",
-        "line": 75,
+        "line": 83,
         "signatures": [
           "get_axis_x(this:void,id:number):VC.Vec3|undefined;"
         ]
@@ -10617,7 +10636,7 @@
       },
       "declaration": {
         "file": "sdk/api/graphics.d.ts",
-        "line": 77,
+        "line": 85,
         "signatures": [
           "get_axis_y(this:void,id:number):VC.Vec3|undefined;"
         ]
@@ -10639,7 +10658,7 @@
       },
       "declaration": {
         "file": "sdk/api/graphics.d.ts",
-        "line": 81,
+        "line": 89,
         "signatures": [
           "get_entity(this:void,id:number):number|undefined;"
         ]
@@ -10661,7 +10680,7 @@
       },
       "declaration": {
         "file": "sdk/api/graphics.d.ts",
-        "line": 73,
+        "line": 81,
         "signatures": [
           "get_pos(this:void,id:number):VC.Vec3|undefined;"
         ]
@@ -10683,7 +10702,7 @@
       },
       "declaration": {
         "file": "sdk/api/graphics.d.ts",
-        "line": 71,
+        "line": 79,
         "signatures": [
           "get_text(this:void,id:number):string|undefined;"
         ]
@@ -10705,7 +10724,7 @@
       },
       "declaration": {
         "file": "sdk/api/graphics.d.ts",
-        "line": 70,
+        "line": 78,
         "signatures": [
           "hide(this:void,id:number):void;"
         ]
@@ -10722,7 +10741,7 @@
       },
       "declaration": {
         "file": "sdk/api/graphics.d.ts",
-        "line": 83,
+        "line": 91,
         "signatures": [
           "\"new\"(this:void,position:VC.Vec3,text:string,preset:VC.NotePreset,extension?:VC.NotePreset):VC.Text3D;"
         ]
@@ -10744,7 +10763,7 @@
       },
       "declaration": {
         "file": "sdk/api/graphics.d.ts",
-        "line": 76,
+        "line": 84,
         "signatures": [
           "set_axis_x(this:void,id:number,axis:VC.Vec3):void;"
         ]
@@ -10766,7 +10785,7 @@
       },
       "declaration": {
         "file": "sdk/api/graphics.d.ts",
-        "line": 78,
+        "line": 86,
         "signatures": [
           "set_axis_y(this:void,id:number,axis:VC.Vec3):void;"
         ]
@@ -10788,7 +10807,7 @@
       },
       "declaration": {
         "file": "sdk/api/graphics.d.ts",
-        "line": 82,
+        "line": 90,
         "signatures": [
           "set_entity(this:void,id:number,entity:number):void;"
         ]
@@ -10810,7 +10829,7 @@
       },
       "declaration": {
         "file": "sdk/api/graphics.d.ts",
-        "line": 74,
+        "line": 82,
         "signatures": [
           "set_pos(this:void,id:number,position:VC.Vec3):void;"
         ]
@@ -10832,7 +10851,7 @@
       },
       "declaration": {
         "file": "sdk/api/graphics.d.ts",
-        "line": 79,
+        "line": 87,
         "signatures": [
           "set_rotation(this:void,id:number,matrix:VC.Mat4):void;"
         ]
@@ -10854,7 +10873,7 @@
       },
       "declaration": {
         "file": "sdk/api/graphics.d.ts",
-        "line": 72,
+        "line": 80,
         "signatures": [
           "set_text(this:void,id:number,text:string):void;"
         ]
@@ -10876,7 +10895,7 @@
       },
       "declaration": {
         "file": "sdk/api/graphics.d.ts",
-        "line": 69,
+        "line": 77,
         "signatures": [
           "show(this:void,position:VC.Vec3,text:string,preset:VC.NotePreset,extension?:VC.NotePreset):number;"
         ]
@@ -10898,7 +10917,7 @@
       },
       "declaration": {
         "file": "sdk/api/graphics.d.ts",
-        "line": 80,
+        "line": 88,
         "signatures": [
           "update_settings(this:void,id:number,preset:VC.NotePreset):void;"
         ]
@@ -10920,7 +10939,7 @@
       },
       "declaration": {
         "file": "sdk/api/graphics.d.ts",
-        "line": 61,
+        "line": 69,
         "signatures": [
           "function change(this:void,preset:VC.WeatherPreset,seconds:number,name?:string):void;"
         ]
@@ -10942,7 +10961,7 @@
       },
       "declaration": {
         "file": "sdk/api/graphics.d.ts",
-        "line": 62,
+        "line": 70,
         "signatures": [
           "function get_current(this:void):string;"
         ]
@@ -10964,7 +10983,7 @@
       },
       "declaration": {
         "file": "sdk/api/graphics.d.ts",
-        "line": 63,
+        "line": 71,
         "signatures": [
           "function get_current_data(this:void):VC.WeatherPreset;"
         ]
@@ -10986,7 +11005,7 @@
       },
       "declaration": {
         "file": "sdk/api/graphics.d.ts",
-        "line": 64,
+        "line": 72,
         "signatures": [
           "function get_fall_intensity(this:void):number;"
         ]
@@ -11008,7 +11027,7 @@
       },
       "declaration": {
         "file": "sdk/api/graphics.d.ts",
-        "line": 65,
+        "line": 73,
         "signatures": [
           "function is_transition(this:void):boolean;"
         ]
@@ -18547,8 +18566,8 @@
     }
   ],
   "coverage": {
-    "total": 638,
-    "typed": 638,
+    "total": 639,
+    "typed": 639,
     "measure": "functions with at least one declared signature",
     "nativePublic": 505
   }
