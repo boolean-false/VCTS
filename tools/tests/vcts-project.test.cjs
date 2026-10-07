@@ -164,3 +164,21 @@ test('adding multiple external modules preserves inherited editor aliases and re
  fs.writeFileSync(path.join(f.dependency,'package.json'),JSON.stringify({id:'external',version:'2.1.0'}));fs.writeFileSync(path.join(f.dependency,'types/vcts.json'),JSON.stringify({schemaVersion:1,modules:{api:{declaration:'api.d.ts',apiVersion:2}}}));
  connectDependency(f.config,f.dependency);const result=buildProject(f.config);assert.equal(result.config.dependencies[0].version,'2.1.0');assert.equal(result.config.dependencies[0].apiVersions.api,2);assert(result.index.modules.find(m=>m.id==='external:api').exports.some(e=>e.name==='double'));
 });
+
+ test('исключения ресурсов позволяют заменить Lua-модуль и сохраняют соседние файлы',t=>{
+  const f=fixture(t),config=JSON.parse(fs.readFileSync(f.config));
+  const resources=path.join(f.dir,'resources');
+  fs.mkdirSync(path.join(resources,'modules'),{recursive:true});
+  fs.mkdirSync(path.join(resources,'history'),{recursive:true});
+  fs.writeFileSync(path.join(resources,'modules/world.lua'),'return {}');
+  fs.writeFileSync(path.join(resources,'modules/keep.lua'),'return {value=5}');
+  fs.writeFileSync(path.join(resources,'history/old.txt'),'old');
+  config.assets.push({from:'resources',to:'content/sample',exclude:['modules/world.lua','history']});
+  fs.writeFileSync(f.config,JSON.stringify(config));
+  const result=buildProject(f.config);
+  assert.match(result.outputs.get('content/sample/modules/world.lua'),/create/);
+  assert.equal(result.outputs.get('content/sample/modules/keep.lua').toString(),'return {value=5}');
+  assert(!result.outputs.has('content/sample/history/old.txt'));
+  config.assets.at(-1).exclude=['../outside'];fs.writeFileSync(f.config,JSON.stringify(config));
+  assert.throws(()=>buildProject(f.config),/Invalid asset exclude/);
+ });

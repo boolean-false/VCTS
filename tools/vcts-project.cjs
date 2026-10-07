@@ -62,9 +62,12 @@ function buildProject(configFile,{write=true,deploy=true,sourceOverrides=[]}={})
     if(!portable(asset.to))throw new Error(`Invalid asset destination: ${asset.to}`);
     const source=path.resolve(root,asset.from);
     assetSources.push(physicalPath(source));
-    function copy(file,name) {
+    const excluded=asset.exclude||[];
+    if(!Array.isArray(excluded)||excluded.some(name=>!portable(name)))throw new Error(`Invalid asset exclude: ${asset.from}`);
+    function copy(file,name,relative='') {
+      if(excluded.some(item=>relative===item||relative.startsWith(item+'/')))return;
       const stat=fs.lstatSync(file);if(stat.isSymbolicLink())throw new Error(`Asset symlink: ${file}`);
-      if(stat.isDirectory())for(const entry of fs.readdirSync(file).sort())copy(path.join(file,entry),`${name}/${entry}`);
+      if(stat.isDirectory())for(const entry of fs.readdirSync(file).sort())copy(path.join(file,entry),`${name}/${entry}`,relative?`${relative}/${entry}`:entry);
       else if(stat.isFile())add(name,fs.readFileSync(file));else throw new Error(`Not a regular asset: ${file}`);
     }
     copy(source,asset.to);
