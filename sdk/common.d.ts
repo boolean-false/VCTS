@@ -10,3 +10,5 @@
 /// <reference path="api/crypto.d.ts" />
 /// <reference path="api/lua-extensions.d.ts" />
 /// <reference path="api/debug.d.ts" />
+/// <reference path="api/modules.d.ts" />
+/// <reference path="api/bytearray.d.ts" />

@@ -78,6 +78,7 @@ function buildModules(configPath, override) {
     fail(format(diagnostics)+(hints.length?'\n'+[...new Set(hints)].join('\n'):''));
   }
 
+  const checker = program.getTypeChecker();
   // Reject unsupported dynamic loading explicitly instead of silently emitting
   // require closures with unresolvable paths. Type-only import expressions are OK.
   for (const source of program.getSourceFiles().filter(file => !file.isDeclarationFile)) {
@@ -92,12 +93,21 @@ function buildModules(configPath, override) {
         || (ts.isIdentifier(node.expression) && node.expression.text === "require"))) {
         fail(`${source.fileName}: use static imports; dynamic import/require is not supported`);
       }
+      if(ts.isCallExpression(node)&&ts.isIdentifier(node.expression)&&node.expression.text==='vcts_load') {
+        const symbol=checker.getSymbolAtLocation(node.expression);
+        if(!symbol?.declarations?.some(d=>d.getSourceFile().isDeclarationFile&&ts.getJSDocTags(d).some(tag=>tag.tagName.text==='vctsDeferred')))fail(`${source.fileName}: vcts_load is reserved for the SDK declaration`);
+        if(node.arguments.length!==1||!ts.isStringLiteral(node.arguments[0])||!/^([A-Za-z_]\w*):([A-Za-z0-9_/-]+)$/.test(node.arguments[0].text))fail(`${source.fileName}: vcts_load requires one literal pack:module ID`);
+        let parent=node.parent;
+        while(parent&&!ts.isFunctionLike(parent))parent=parent.parent;
+        if(!parent)fail(`${source.fileName}: vcts_load must be called inside a function after module initialization`);
+      }
       ts.forEachChild(node, visit);
     };
     visit(source);
   }
 
   const graph = new Map();
+  const deferredGraph = new Map();
   const features = new Map(packs.map(pack => [pack.id, new Set()]));
   const outputs = new Map();
   const nativeModules = new Map();
@@ -126,10 +136,12 @@ function buildModules(configPath, override) {
     printer(currentProgram, host, filename, luaFile) {
       const current = owner(filename);
       graph.set(current.key, new Set());
+      deferredGraph.set(current.key, new Set());
       for (const feature of luaFile.luaLibFeatures) features.get(current.pack.id).add(feature);
       class VcPrinter extends tstl.LuaPrinter {
         printCallExpression(expression) {
-          if (!tstl.isIdentifier(expression.expression) || expression.expression.text !== "require") {
+          const deferred=tstl.isIdentifier(expression.expression)&&expression.expression.text==='vcts_load';
+          if (!deferred&&(!tstl.isIdentifier(expression.expression) || expression.expression.text !== "require")) {
             return super.printCallExpression(expression);
           }
           const argument = expression.params[0];
@@ -156,11 +168,12 @@ function buildModules(configPath, override) {
                 fail(`${current.pack.id} imports private module ${target.key}`);
               }
             }
-            graph.get(current.key).add(target.key);
+            (deferred?deferredGraph:graph).get(current.key).add(target.key);
             resolved = target.key;
           }
           return super.printCallExpression({
             ...expression,
+            expression:deferred?{...expression.expression,text:'require'}:expression.expression,
             params: [{ ...argument, value: resolved }],
           });
         }
@@ -198,9 +211,9 @@ function buildModules(configPath, override) {
     visited.add(key);
   }
   for (const key of [...graph.keys()].sort()) checkCycle(key);
+  for(const [key,targets] of deferredGraph)for(const target of targets)if(!graph.has(target))fail(`Deferred module was not emitted: ${key} -> ${target}`);
   // VC executes this entry in a fresh component environment for every entity.
   // The required TS module is cached, so instance state belongs inside its factory.
-  const checker = program.getTypeChecker();
   function resolveFactory(entry, kind) {
     const match = /^([^:]+):([a-zA-Z0-9_/-]+)$/.exec(entry.id);
     const pack = match && packs.find(item => item.id === match[1]);
@@ -284,7 +297,7 @@ function buildModules(configPath, override) {
   }
   const moduleIndex=program.getSourceFiles().filter(file=>!file.isDeclarationFile).map(file=>{
     const item=owner(file.fileName),symbol=checker.getSymbolAtLocation(file);
-    return {id:item.key,source:fs.realpathSync(file.fileName),public:item.pack.public.has(item.relative),imports:[...(graph.get(item.key)||[])],
+    return {id:item.key,source:fs.realpathSync(file.fileName),public:item.pack.public.has(item.relative),imports:[...(graph.get(item.key)||[])],lazyImports:[...(deferredGraph.get(item.key)||[])],
       exports:symbol?checker.getExportsOfModule(symbol).map(exported=>describeExport(exported,file)):[]};
   });
   for(const binding of config.externalModules||[]) {

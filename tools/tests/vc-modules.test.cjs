@@ -296,3 +296,30 @@ test('typed UI emits element self calls and native Document metatable dispatch',
     assert(require("workshop:ui").run()=="Ready" and destroyed)
   `);
 });
+
+test('отложенная загрузка сохраняет момент инициализации и допускает взаимные обработчики',t=>{
+  const f=fixture(t);
+  f.write('energy/sdk-deferred.d.ts',fs.readFileSync(path.resolve(__dirname,'../../sdk/api/modules.d.ts'),'utf8'));
+  const tsconfig=JSON.parse(fs.readFileSync(path.join(f.root,'tsconfig.json')));
+  tsconfig.compilerOptions.paths={...tsconfig.compilerOptions.paths,'energy:*':['./energy/*']};
+  f.write('tsconfig.json',JSON.stringify(tsconfig));
+  f.write('energy/lazy-a.ts','export const tag="a"; export function read(){return vcts_load<typeof import("./lazy-b")>("energy:lazy-b").owner();}');
+  f.write('energy/lazy-b.ts','declare function mark(this:void):void;mark();export function owner(){return vcts_load<typeof import("./lazy-a")>("energy:lazy-a").tag;}');
+  const result=f.build();
+  const item=result.moduleIndex.find(m=>m.id==='energy:lazy-a');
+  assert.deepEqual(item.imports,[]);assert.deepEqual(item.lazyImports,['energy:lazy-b']);
+  runInVcLoader(result.outputs,`
+    local visits=0;mark=function()visits=visits+1 end
+    local a=require('energy:lazy-a');assert(visits==0)
+    assert(a.read()=='a' and visits==1)
+    assert(a.read()=='a' and visits==1)
+  `);
+});
+test('отложенная загрузка отклоняет вызов при инициализации и вычисляемый ID',t=>{
+  const f=fixture(t);
+  f.write('energy/sdk-deferred.d.ts',fs.readFileSync(path.resolve(__dirname,'../../sdk/api/modules.d.ts'),'utf8'));
+  f.write('energy/lazy.ts','export const value=vcts_load("energy:public");');
+  assert.throws(()=>f.build(),/inside a function/);
+  f.write('energy/lazy.ts','export function read(id:string){return vcts_load(id);}');
+  assert.throws(()=>f.build(),/literal pack:module ID/);
+});
