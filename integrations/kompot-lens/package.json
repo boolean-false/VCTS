@@ -1,0 +1,169 @@
+{
+  "name": "kompot-lens",
+  "displayName": "Kompot Lens",
+  "description": "Kompot (declarative UI for VoxelCore): previews beside the editor, interactive mode, completion and docs for components, modifiers, themes and icons.",
+  "version": "0.15.0",
+  "icon": "icons/kompot.png",
+  "publisher": "BooleanFalse",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.106.0"
+  },
+  "categories": [
+    "Programming Languages",
+    "Visualization"
+  ],
+  "keywords": [
+    "voxelcore",
+    "kompot",
+    "lua",
+    "ui",
+    "preview",
+    "compose"
+  ],
+  "main": "./out/src/extension.js",
+  "activationEvents": [
+    "onLanguage:lua",
+    "onLanguage:typescript"
+  ],
+  "extensionDependencies": [
+    "sumneko.lua"
+  ],
+  "scripts": {
+    "build": "node -e \"require('node:fs').rmSync('out',{recursive:true,force:true})\" && tsc -p tsconfig.json && node out/scripts/build-assets.js",
+    "test": "npm run build && node --test out/test/*.test.js",
+    "test:extension": "npm run build && node out/scripts/run-extension-tests.js",
+    "package": "npm run build && node out/scripts/check-types.js && node out/scripts/package.js"
+  },
+  "devDependencies": {
+    "@types/node": "^22.20.4",
+    "@types/vscode": "^1.85.0",
+    "esbuild": "0.25.12",
+    "freetype-wasm": "0.0.4",
+    "jsonc-parser": "3.3.1",
+    "typescript": "^5.9.3",
+    "wasmoon": "1.16.0"
+  },
+  "capabilities": {
+    "untrustedWorkspaces": {
+      "supported": "limited",
+      "description": "Превью и дополнение запускают Lua-код проекта и работают только в доверенной рабочей области."
+    },
+    "virtualWorkspaces": false
+  },
+  "contributes": {
+    "viewsContainers": {
+      "secondarySidebar": [
+        {
+          "id": "kompot-preview",
+          "title": "Kompot Lens",
+          "icon": "icons/kompot.svg"
+        }
+      ]
+    },
+    "views": {
+      "kompot-preview": [
+        {
+          "type": "webview",
+          "id": "kompot.previewView",
+          "name": "Превью",
+          "icon": "icons/kompot.svg"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "kompot.openPreview",
+        "title": "Kompot: Открыть превью",
+        "icon": "$(open-preview)"
+      },
+      {
+        "command": "kompot.refresh",
+        "title": "Kompot: Обновить превью и каталог API"
+      },
+      {
+        "command": "kompot.newPreview",
+        "title": "Kompot: Добавить превью"
+      },
+      {
+        "command": "kompot.chooseContent",
+        "title": "Kompot: Выбрать каталог паков"
+      }
+    ],
+    "menus": {
+      "editor/title": [
+        {
+          "command": "kompot.openPreview",
+          "when": "(resourceLangId == lua || resourceLangId == typescript) && kompot.hasPreviews",
+          "group": "navigation"
+        }
+      ]
+    },
+    "keybindings": [
+      {
+        "command": "kompot.openPreview",
+        "key": "ctrl+k v",
+        "mac": "cmd+k v",
+        "when": "editorTextFocus && (editorLangId == lua || editorLangId == typescript)"
+      }
+    ],
+    "snippets": [
+      {
+        "language": "lua",
+        "path": "./snippets/lua.json"
+      }
+    ],
+    "configuration": {
+      "title": "Kompot Lens",
+      "properties": {
+        "kompot.luaExecutable": {
+          "type": "string",
+          "default": "",
+          "scope": "machine",
+          "description": "Путь к другому интерпретатору Lua или LuaJIT. Пусто - встроенный Lua, установка не требуется."
+        },
+        "kompot.contentPath": {
+          "type": "string",
+          "default": "",
+          "scope": "machine-overridable",
+          "description": "Каталог паков (content), где лежит пак kompot. Пусто - ближайший родительский каталог файла с паком kompot."
+        },
+        "kompot.enginePath": {
+          "type": "string",
+          "default": "",
+          "scope": "machine-overridable",
+          "description": "Папка res движка VoxelCore (текстуры блоков в превью). Пусто - по game/latest.log рядом с content."
+        },
+        "kompot.previewDelay": {
+          "type": "number",
+          "default": 200,
+          "minimum": 0,
+          "description": "Задержка перерисовки при наборе в режиме live, мс.",
+          "scope": "resource"
+        },
+        "kompot.previewUpdateMode": {
+          "type": "string",
+          "enum": [
+            "onSave",
+            "live"
+          ],
+          "default": "onSave",
+          "description": "Когда обновлять превью: после сохранения файла или при наборе (включая несохранённые Lua- и TS-модули).",
+          "scope": "resource"
+        },
+        "kompot.sandbox": {
+          "type": "boolean",
+          "default": true,
+          "description": "Дополнительные ограничения ресурсов для процесса превью на Linux.",
+          "scope": "resource"
+        },
+        "kompot.vctsPath": {
+          "type": "string",
+          "default": "",
+          "scope": "machine-overridable",
+          "description": "Папка VCTS для TS-превью. Пусто — toolchain из зависимостей проекта."
+        }
+      }
+    }
+  }
+}

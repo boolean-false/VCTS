@@ -1,0 +1,1 @@
+{"tsconfig":"tsconfig.json","outDir":"../../build/author/content","packs":[{"id":"author","root":"../../sdk/author","public":["core.ts","network.ts"]},{"id":"authcheck","root":"probe","dependencies":["author"]}]}

@@ -1,0 +1,8 @@
+tests/.user/
+tests/visual/out/
+.idea
+dist/
+__pycache__/
+
+font-check/
+.luarc.json

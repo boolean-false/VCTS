@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "lib": [
+      "ES2022"
+    ],
+    "types": [],
+    "strict": true,
+    "paths": {
+      "kompot:kompot": [
+        "../../integrations/kompot/pack/types/kompot.d.ts"
+      ],
+      "kompot:ui": [
+        "../../integrations/kompot/pack/types/ui.d.ts"
+      ]
+    }
+  },
+  "include": [
+    "../../sdk/client.d.ts",
+    "src/**/*.ts"
+  ]
+}

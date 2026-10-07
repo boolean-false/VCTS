@@ -1,0 +1,7 @@
+{
+  "vcts": "1.0.0",
+  "voxelcore": "0.32.1",
+  "typescriptToLua": "1.37.1",
+  "languageExtensions": "1.19.0",
+  "languageExtensionsLicense": "MIT"
+}

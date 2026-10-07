@@ -1,0 +1,1 @@
+{"tsconfig":"generator.tsconfig.json","outDir":"../../build/generation/content","packs":[{"id":"genprobe","root":"generator","dependencies":["base"]}],"generators":[{"id":"genprobe:typed","source":"generator/terrain.ts","factory":"create"}]}

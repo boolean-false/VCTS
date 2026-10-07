@@ -1,0 +1,52 @@
+{
+  "$schema": "../../tools/vcts.schema.json",
+  "schemaVersion": 1,
+  "kind": "mod",
+  "outDir": "../../build/kompot",
+  "dependencies": [
+    {
+      "id": "kompot",
+      "path": "../../integrations/kompot/pack",
+      "version": "1.2.2",
+      "apiVersions": {
+        "kompot": "1.2",
+        "ui": "1.2"
+      }
+    }
+  ],
+  "units": [
+    {
+      "tsconfig": "tsconfig.json",
+      "packs": [
+        {
+          "id": "kompot_ts",
+          "root": "src/kompot_ts",
+          "dependencies": [
+            "kompot"
+          ]
+        }
+      ],
+      "layouts": [
+        {
+          "id": "kompot_ts:panel",
+          "source": "src/kompot_ts/layout.ts",
+          "factory": "create"
+        }
+      ],
+      "scripts": [
+        {
+          "id": "kompot_ts:hud",
+          "kind": "hud",
+          "source": "src/kompot_ts/hud.ts",
+          "factory": "create"
+        }
+      ]
+    }
+  ],
+  "assets": [
+    {
+      "from": "content",
+      "to": "content/kompot_ts"
+    }
+  ]
+}

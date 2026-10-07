@@ -1,0 +1,12 @@
+{
+    "folders": [
+        {
+            "name": "kompot",
+            "path": "."
+        },
+        {
+            "name": "kompot_plugin",
+            "path": "../../../kompot_plugin"
+        }
+    ]
+}

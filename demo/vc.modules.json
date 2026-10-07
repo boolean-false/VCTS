@@ -1,0 +1,12 @@
+{
+  "tsconfig": "tsconfig.json",
+  "outDir": "../build/demo/content",
+  "packs": [
+    { "id": "vcts", "root": "../runtime", "public": ["core.lua"], "dependencies": [] },
+    { "id": "energy", "root": "../design/packs/energy", "public": ["public.ts"], "dependencies": ["vcts"] },
+    { "id": "workshop", "root": "../design/packs/workshop", "public": ["pack.ts"], "dependencies": ["base", "energy", "vcts"] }
+  ],
+  "nativeModules": [
+    { "id": "vcts:core", "declaration": "../design/contracts/core.d.ts", "source": "../runtime/core.lua" }
+  ]
+}

@@ -1,0 +1,1 @@
+{"tsconfig":"probe.tsconfig.json","outDir":"../../build/generation/content","packs":[{"id":"gencheck","root":"probe","dependencies":["base","genprobe"]}]}

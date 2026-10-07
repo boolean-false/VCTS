@@ -1,0 +1,147 @@
+{
+    "fonts": [
+        {
+            "name": "kompot_11",
+            "path": "fonts/IBMPlexSans-Regular.ttf",
+            "size": 11
+        },
+        {
+            "name": "kompot_12",
+            "path": "fonts/IBMPlexSans-Regular.ttf",
+            "size": 12
+        },
+        {
+            "name": "kompot_13",
+            "path": "fonts/IBMPlexSans-Regular.ttf",
+            "size": 13
+        },
+        {
+            "name": "kompot_14",
+            "path": "fonts/IBMPlexSans-Regular.ttf",
+            "size": 14
+        },
+        {
+            "name": "kompot_16",
+            "path": "fonts/IBMPlexSans-Regular.ttf",
+            "size": 16
+        },
+        {
+            "name": "kompot_20",
+            "path": "fonts/IBMPlexSans-Regular.ttf",
+            "size": 20
+        },
+        {
+            "name": "kompot_24",
+            "path": "fonts/IBMPlexSans-Regular.ttf",
+            "size": 24
+        },
+        {
+            "name": "kompot_32",
+            "path": "fonts/IBMPlexSans-Regular.ttf",
+            "size": 32
+        },
+        {
+            "name": "kompot_44",
+            "path": "fonts/IBMPlexSans-Regular.ttf",
+            "size": 44
+        },
+        {
+            "name": "kompot_sb_11",
+            "path": "fonts/IBMPlexSans-SemiBold.ttf",
+            "size": 11
+        },
+        {
+            "name": "kompot_sb_12",
+            "path": "fonts/IBMPlexSans-SemiBold.ttf",
+            "size": 12
+        },
+        {
+            "name": "kompot_sb_13",
+            "path": "fonts/IBMPlexSans-SemiBold.ttf",
+            "size": 13
+        },
+        {
+            "name": "kompot_sb_14",
+            "path": "fonts/IBMPlexSans-SemiBold.ttf",
+            "size": 14
+        },
+        {
+            "name": "kompot_sb_16",
+            "path": "fonts/IBMPlexSans-SemiBold.ttf",
+            "size": 16
+        },
+        {
+            "name": "kompot_sb_20",
+            "path": "fonts/IBMPlexSans-SemiBold.ttf",
+            "size": 20
+        },
+        {
+            "name": "kompot_sb_24",
+            "path": "fonts/IBMPlexSans-SemiBold.ttf",
+            "size": 24
+        },
+        {
+            "name": "kompot_sb_32",
+            "path": "fonts/IBMPlexSans-SemiBold.ttf",
+            "size": 32
+        },
+        {
+            "name": "kompot_sb_44",
+            "path": "fonts/IBMPlexSans-SemiBold.ttf",
+            "size": 44
+        },
+        {
+            "name": "kompot_mono_11",
+            "path": "fonts/IBMPlexMono-Regular.ttf",
+            "size": 11
+        },
+        {
+            "name": "kompot_mono_12",
+            "path": "fonts/IBMPlexMono-Regular.ttf",
+            "size": 12
+        },
+        {
+            "name": "kompot_mono_13",
+            "path": "fonts/IBMPlexMono-Regular.ttf",
+            "size": 13
+        },
+        {
+            "name": "kompot_mono_14",
+            "path": "fonts/IBMPlexMono-Regular.ttf",
+            "size": 14
+        },
+        {
+            "name": "kompot_mono_16",
+            "path": "fonts/IBMPlexMono-Regular.ttf",
+            "size": 16
+        },
+        {
+            "name": "kompot_mono_20",
+            "path": "fonts/IBMPlexMono-Regular.ttf",
+            "size": 20
+        },
+        {
+            "name": "kompot_mono_24",
+            "path": "fonts/IBMPlexMono-Regular.ttf",
+            "size": 24
+        },
+        {
+            "name": "kompot_mono_32",
+            "path": "fonts/IBMPlexMono-Regular.ttf",
+            "size": 32
+        },
+        {
+            "name": "kompot_mono_44",
+            "path": "fonts/IBMPlexMono-Regular.ttf",
+            "size": 44
+        }
+    ],
+    "atlases": [
+        {
+            "name": "kompot_ui_icons"
+        },
+        {
+            "name": "kompot_ui_skin"
+        }
+    ]
+}

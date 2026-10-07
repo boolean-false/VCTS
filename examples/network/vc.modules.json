@@ -1,0 +1,4 @@
+{
+  "tsconfig":"tsconfig.json", "outDir":"../../build/network/content",
+  "packs":[{"id":"netprobe","root":"source","public":["smoke.ts"],"dependencies":["base"]}]
+}

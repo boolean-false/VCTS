@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "lib": [
+      "ES2022"
+    ],
+    "types": [],
+    "strict": true,
+    "paths": {
+      "rail_core:api": [
+        "../../build/railcore/content/rail_core/types/api.d.ts"
+      ]
+    }
+  },
+  "include": [
+    "../../sdk/headless.d.ts",
+    "src/**/*.ts"
+  ]
+}

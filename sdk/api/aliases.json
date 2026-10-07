@@ -1,0 +1,116 @@
+[
+  {
+    "id": "vc.get_version",
+    "context": "all-states",
+    "file": "res/scripts/stdmin.lua",
+    "anchor": "get_version = __vc_app.get_version"
+  },
+  {
+    "id": "vc.get_setting",
+    "context": "all-states",
+    "file": "res/scripts/stdmin.lua",
+    "anchor": "get_setting = __vc_app.get_setting"
+  },
+  {
+    "id": "vc.str_setting",
+    "context": "all-states",
+    "file": "res/scripts/stdmin.lua",
+    "anchor": "str_setting = __vc_app.str_setting"
+  },
+  {
+    "id": "vc.get_setting_info",
+    "context": "all-states",
+    "file": "res/scripts/stdmin.lua",
+    "anchor": "get_setting_info = __vc_app.get_setting_info"
+  },
+  {
+    "id": "vc.is_headless",
+    "context": "all-states",
+    "file": "res/scripts/stdmin.lua",
+    "anchor": "is_headless = function()"
+  },
+  {
+    "id": "vc.is_client",
+    "context": "all-states",
+    "file": "res/scripts/stdmin.lua",
+    "anchor": "is_client = function()"
+  },
+  {
+    "id": "app.tick",
+    "context": "app-script",
+    "file": "res/scripts/stdlib.lua",
+    "anchor": "app.tick = __app_tick"
+  },
+  {
+    "id": "app.sleep",
+    "context": "app-script",
+    "file": "res/scripts/stdlib.lua",
+    "anchor": "app.sleep = sleep"
+  },
+  {
+    "id": "session.get",
+    "context": "base/script",
+    "file": "res/modules/internal/session.lua",
+    "anchor": "function this.get("
+  },
+  {
+    "id": "session.has",
+    "context": "base/script",
+    "file": "res/modules/internal/session.lua",
+    "anchor": "function this.has("
+  },
+  {
+    "id": "session.reset",
+    "context": "base/script",
+    "file": "res/modules/internal/session.lua",
+    "anchor": "function this.reset("
+  },
+  {
+    "id": "world.raycast",
+    "context": "base/script",
+    "file": "res/scripts/stdlib.lua",
+    "anchor": "world.raycast = entities.__world_raycast"
+  },
+  {
+    "id": "entities.get",
+    "context": "base/script",
+    "file": "res/scripts/stdlib.lua",
+    "anchor": "entities.get = stdcomp.get_Entity"
+  },
+  {
+    "id": "file.open",
+    "context": "base/script",
+    "file": "res/scripts/stdlib.lua",
+    "anchor": "file.open = require \"core:internal/stream_providers/file\""
+  },
+  {
+    "id": "file.open_named_pipe",
+    "context": "base/script",
+    "file": "res/scripts/stdlib.lua",
+    "anchor": "file.open_named_pipe = require \"core:internal/stream_providers/named_pipe\""
+  },
+  {
+    "id": "core.get_core_token",
+    "context": "base/script",
+    "file": "res/scripts/stdlib.lua",
+    "anchor": "core.get_core_token = audio.input.__get_core_token"
+  },
+  {
+    "id": "network.request",
+    "context": "base/script",
+    "file": "res/scripts/classes.lua",
+    "anchor": "network.request = request"
+  },
+  {
+    "id": "random.Random",
+    "context": "all-states",
+    "file": "src/logic/scripting/lua/lua_engine.cpp",
+    "anchor": "setfield(L, \"Random\");"
+  },
+  {
+    "id": "audio.PCMStream",
+    "context": "all-states",
+    "file": "src/logic/scripting/lua/lua_engine.cpp",
+    "anchor": "setfield(L, \"PCMStream\");"
+  }
+]

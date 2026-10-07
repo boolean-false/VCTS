@@ -1,0 +1,12 @@
+{
+  "name": "kompot-ts-example",
+  "private": true,
+  "scripts": {
+    "build": "vcts build",
+    "check": "vcts check",
+    "watch": "vcts watch"
+  },
+  "devDependencies": {
+    "@vcts/toolchain": "file:../.."
+  }
+}

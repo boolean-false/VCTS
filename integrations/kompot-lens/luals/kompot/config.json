@@ -1,0 +1,6 @@
+{
+  "name": "Kompot",
+  "words": ["require[%s%(%\"']+kompot:"],
+  "files": ["kompot.lua"],
+  "settings": {}
+}

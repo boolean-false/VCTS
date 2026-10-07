@@ -1,0 +1,23 @@
+{
+  "tsconfig": "tsconfig.json",
+  "outDir": "../../build/direct/content",
+  "packs": [
+    {
+      "id": "direct",
+      "root": "source",
+      "public": [
+        "smoke.ts"
+      ],
+      "dependencies": [
+        "base"
+      ]
+    }
+  ],
+  "components": [
+    {
+      "id": "direct:mover",
+      "source": "source/mover.ts",
+      "factory": "create"
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "tsconfig": "tsconfig.json",
+  "outDir": "../../build/imports",
+  "packs": [
+    { "id": "energy", "root": "energy", "public": ["public.ts"], "dependencies": [] },
+    { "id": "workshop", "root": "workshop", "public": ["main.ts"], "dependencies": ["energy"] }
+  ]
+}

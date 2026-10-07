@@ -1,0 +1,77 @@
+{
+  "schemaVersion": 1,
+  "kind": "game",
+  "outDir": "build",
+  "$comment": "packOutDirs: укажите папку пака в игре. Пример: {\"gamekit\": \"../VoxelCore/content/gamekit\"}. Путь относительно этого конфига или абсолютный. Пустой объект — только локальная сборка.",
+  "packOutDirs": {},
+  "project": {
+    "name": "gamekit_game",
+    "title": "gamekit VoxelCore project",
+    "basePacks": [
+      "gamekit"
+    ]
+  },
+  "units": [
+    {
+      "tsconfig": "tsconfig.json",
+      "packs": [
+        {
+          "id": "gamekit",
+          "root": "src/gamekit",
+          "dependencies": [],
+          "manifest": {
+            "title": "gamekit",
+            "version": "0.1.0",
+            "creator": "You"
+          }
+        }
+      ],
+      "scripts": [
+        {
+          "id": "gamekit:world",
+          "kind": "world",
+          "source": "src/gamekit/world.ts",
+          "factory": "create"
+        }
+      ]
+    },
+    {
+      "tsconfig": "generator.tsconfig.json",
+      "packs": [
+        {
+          "id": "gamekit",
+          "root": "src/gamekit",
+          "dependencies": [],
+          "manifest": {
+            "title": "gamekit",
+            "version": "0.1.0",
+            "creator": "You"
+          }
+        }
+      ],
+      "generators": [
+        {
+          "id": "gamekit:flat",
+          "source": "src/gamekit/generator/terrain.ts",
+          "factory": "create"
+        }
+      ]
+    }
+  ],
+  "assets": [
+    {
+      "from": "tests/start.lua",
+      "to": "start.lua"
+    },
+    {
+      "from": "content/gamekit",
+      "to": "content/gamekit"
+    }
+  ],
+  "test": {
+    "script": "start.lua",
+    "marker": "VCTS_PROJECT_PASS",
+    "evidencePath": "worlds/vcts-smoke/probe.json"
+  },
+  "$schema": "./vcts.schema.json"
+}

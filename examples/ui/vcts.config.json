@@ -1,0 +1,6 @@
+{
+  "$schema":"../../tools/vcts.schema.json",
+  "schemaVersion":1,"kind":"mod","outDir":"../../build/ui",
+  "units":[{"tsconfig":"tsconfig.json","packs":[{"id":"uiprobe","root":"source","dependencies":["base"]}],"layouts":[{"id":"uiprobe:counter","source":"source/counter.ts","factory":"create"}],"scripts":[{"id":"uiprobe:hud","kind":"hud","source":"source/hud.ts","factory":"create"}]}],
+  "assets":[{"from":"content/layouts","to":"content/uiprobe/layouts"}]
+}

@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "modules": {
+    "kompot": {
+      "declaration": "kompot.d.ts",
+      "apiVersion": "1.2"
+    },
+    "ui": {
+      "declaration": "ui.d.ts",
+      "apiVersion": "1.2"
+    }
+  }
+}

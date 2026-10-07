@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "types": [],
+    "paths": { "@energy/api": ["./energy/public.ts"] }
+  },
+  "include": ["energy/**/*.ts", "workshop/**/*.ts"]
+}

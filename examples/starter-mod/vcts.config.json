@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "kind": "mod",
+  "outDir": "build",
+  "$comment": "packOutDirs: укажите папку пака в игре. Пример: {\"starter\": \"../VoxelCore/content/starter\"}. Путь относительно этого конфига или абсолютный. Пустой объект — только локальная сборка.",
+  "packOutDirs": {},
+  "project": {
+    "name": "starter_game",
+    "title": "starter VoxelCore project",
+    "basePacks": [
+      "base",
+      "starter"
+    ]
+  },
+  "units": [
+    {
+      "tsconfig": "tsconfig.json",
+      "packs": [
+        {
+          "id": "starter",
+          "root": "src/starter",
+          "dependencies": [
+            "base"
+          ],
+          "manifest": {
+            "title": "starter",
+            "version": "0.1.0",
+            "creator": "You"
+          }
+        }
+      ],
+      "scripts": [
+        {
+          "id": "starter:world",
+          "kind": "world",
+          "source": "src/starter/world.ts",
+          "factory": "create"
+        }
+      ]
+    }
+  ],
+  "assets": [
+    {
+      "from": "tests/start.lua",
+      "to": "start.lua"
+    }
+  ],
+  "test": {
+    "script": "start.lua",
+    "marker": "VCTS_PROJECT_PASS",
+    "evidencePath": "worlds/vcts-smoke/probe.json"
+  },
+  "$schema": "./vcts.schema.json"
+}

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<container size="300,130" color="#202630FF" pos="30,30">
+  <label id="summary" pos="16,12" size="268,32" color="#FFFFFFFF">Clicks: 0</label>
+  <button pos="16,58" size="268,40" onclick="increment()">Increment</button>
+</container>

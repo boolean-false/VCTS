@@ -1,0 +1,14 @@
+{
+  "name": "gamekit-vc-project",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "build": "vcts build",
+    "check": "vcts check",
+    "watch": "vcts watch",
+    "test": "vcts test"
+  },
+  "devDependencies": {
+    "@vcts/toolchain": "file:/Users/dartyukhov/Desktop/Projects/vcts"
+  }
+}

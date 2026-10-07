@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src {{csp}} data: blob:; font-src {{csp}}; style-src {{csp}} 'unsafe-inline'; connect-src {{csp}}; script-src 'nonce-{{nonce}}' 'wasm-unsafe-eval';">
+  <link rel="stylesheet" href="{{style}}">
+  <title>Kompot Preview</title>
+</head>
+<body>
+  <nav aria-label="Превью Kompot">
+    <span id="file" class="file"></span>
+    <span id="status" class="status"></span>
+    <span class="spacer"></span>
+    <button id="zoom-out" title="Уменьшить (Ctrl+колесо)">−</button>
+    <button id="zoom-value" title="Масштаб 100%">100%</button>
+    <button id="zoom-in" title="Увеличить (Ctrl+колесо)">+</button>
+    <button id="fit" aria-pressed="true" title="Вписывать широкие превью в ширину панели">Вписать</button>
+    <button id="refresh" title="Перерисовать">↻</button>
+  </nav>
+  <div id="banner" class="banner" hidden></div>
+  <main id="list"></main>
+  <p id="empty" class="empty">В файле нет превью. Объявите их через <code>K.preview("Имя", {width = 320, height = 200, theme = ...}, function() ... end)</code>.</p>
+  <script nonce="{{nonce}}" src="{{freetype}}"></script>
+  <script nonce="{{nonce}}" src="{{raster}}" data-wasm="{{wasm}}"></script>
+  <script nonce="{{nonce}}" src="{{bitmap}}"></script>
+  <script nonce="{{nonce}}" src="{{render}}"></script>
+  <script nonce="{{nonce}}" src="{{script}}"></script>
+</body>
+</html>
