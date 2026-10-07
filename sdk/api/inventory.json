@@ -104,7 +104,8 @@
     "src/presets/NotePreset.cpp": "0983ccee8ba664d49a3539477e96e2c8080948262ce4fc1c5093a1a5c410d4bd",
     "src/presets/ParticlesPreset.cpp": "2e84d8e4d61361f2183353ef37d3a26aacfa172175c7b4d58f036cc7544d83aa",
     "src/presets/ParticlesPreset.hpp": "2528f1e437955612390e51f4a837472879db959bb505e1886efb28c4ad2ff8c3",
-    "src/presets/WeatherPreset.cpp": "1908d86536a84e893ca12c06e9df00f58d7d1379be5728b972f7af38a9e49e34"
+    "src/presets/WeatherPreset.cpp": "1908d86536a84e893ca12c06e9df00f58d7d1379be5728b972f7af38a9e49e34",
+    "res/modules/internal/bytearray.lua": "47d6a6d8143a5d01de67aad1c10b88597910a2fa6baff6af80b5a322065cf6eb"
   },
   "surfaces": {
     "callbacks": [
@@ -6826,6 +6827,25 @@
         "line": 34,
         "signatures": [
           "function set_variant(this: void, x: number, y: number, z: number, variant: number): void;"
+        ]
+      }
+    },
+    {
+      "id": "Bytearray.append",
+      "context": "all-states",
+      "file": "res/modules/internal/bytearray.lua",
+      "anchor": "append = append",
+      "namespace": "Bytearray",
+      "internal": false,
+      "lua": {
+        "file": "res/modules/internal/bytearray.lua",
+        "line": 205
+      },
+      "declaration": {
+        "file": "sdk/api/bytearray.d.ts",
+        "line": 6,
+        "signatures": [
+          "function append(this: void, target: VC.Bytearray, source: number | number[] | VC.Bytearray): void;"
         ]
       }
     },
@@ -18527,8 +18547,8 @@
     }
   ],
   "coverage": {
-    "total": 637,
-    "typed": 637,
+    "total": 638,
+    "typed": 638,
     "measure": "functions with at least one declared signature",
     "nativePublic": 505
   }

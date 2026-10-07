@@ -323,3 +323,19 @@ test('отложенная загрузка отклоняет вызов при
   f.write('energy/lazy.ts','export function read(id:string){return vcts_load(id);}');
   assert.throws(()=>f.build(),/literal pack:module ID/);
 });
+
+test('счётчик for let нельзя захватывать в обработчике',t=>{
+  const f=fixture(t);
+  f.write('energy/loops.ts','export function values(){const callbacks:(()=>number)[]=[];for(let i=0;i<3;i++)callbacks.push(()=>i);return callbacks.map(fn=>fn());}');
+  assert.throws(()=>f.build(),/переменная цикла i захвачена обработчиком/);
+  f.write('energy/loops.ts','export function values(){const callbacks:(()=>number)[]=[];for(let i=0;i<3;i++){const index=i;callbacks.push(()=>index);}return callbacks.map(fn=>fn());}');
+  const result=f.build();
+  runInVcLoader(result.outputs,"local v=require('energy:loops').values();assert(v[1]==0 and v[2]==1 and v[3]==2)");
+});
+
+test('общий счётчик и затенение имени сохраняют семантику',t=>{
+  const f=fixture(t);
+  f.write('energy/loops.ts','export function shared(){const callbacks:(()=>number)[]=[];let i=0;for(i=0;i<3;i++)callbacks.push(()=>i);return callbacks.map(fn=>fn());}export function shadow(){const callbacks:(()=>number)[]=[];for(let i=0;i<3;i++){const read=(i:number)=>i;callbacks.push(()=>read(7));}return callbacks.map(fn=>fn());}');
+  const result=f.build();
+  runInVcLoader(result.outputs,"local m=require('energy:loops');local a=m.shared();assert(a[1]==3 and a[2]==3 and a[3]==3);local b=m.shadow();assert(b[1]==7 and b[3]==7)");
+});

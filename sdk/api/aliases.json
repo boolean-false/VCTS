@@ -1,5 +1,11 @@
 [
   {
+    "id": "Bytearray.append",
+    "context": "all-states",
+    "file": "res/modules/internal/bytearray.lua",
+    "anchor": "append = append"
+  },
+  {
     "id": "vc.get_version",
     "context": "all-states",
     "file": "res/scripts/stdmin.lua",

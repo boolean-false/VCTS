@@ -26,6 +26,8 @@ test('inventory keeps Lua overrides and actual registration contexts',()=>{
   assert.equal(sockets.get('VC.Socket.recv').declaration.signatures.length,3);
   assert(sockets.get('VC.Socket.as_stream').declaration);
   assert(byId.get('network.get_binary').declaration.deprecated.includes('response.code'));
+  assert.equal(byId.get('Bytearray.append').lua.file,'res/modules/internal/bytearray.lua');
+  assert(byId.get('Bytearray.append').declaration.signatures[0].includes('this: void'));
 });
 
 test('new registered library cannot silently disappear from the inventory', t=>{

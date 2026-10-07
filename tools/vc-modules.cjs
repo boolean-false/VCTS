@@ -84,6 +84,24 @@ function buildModules(configPath, override) {
   for (const source of program.getSourceFiles().filter(file => !file.isDeclarationFile)) {
     owner(source.fileName);
     const visit = node => {
+      if(ts.isForStatement(node)&&node.initializer&&ts.isVariableDeclarationList(node.initializer)&&(node.initializer.flags&ts.NodeFlags.Let)) {
+        const variables=new Set();
+        const collect=name=>{
+          if(ts.isIdentifier(name))variables.add(checker.getSymbolAtLocation(name));
+          else for(const element of name.elements)if(ts.isBindingElement(element))collect(element.name);
+        };
+        for(const declaration of node.initializer.declarations)collect(declaration.name);
+        // TSTL выносит счётчик перед while, поэтому замыкание видит последнее значение.
+        const capture=(child,inFunction=false)=>{
+          const nested=inFunction||ts.isFunctionLike(child);
+          if(nested&&ts.isIdentifier(child)&&variables.has(checker.getSymbolAtLocation(child))) {
+            const position=source.getLineAndCharacterOfPosition(child.getStart(source));
+            fail(`${source.fileName}:${position.line+1}:${position.character+1}: переменная цикла ${child.text} захвачена обработчиком. Создайте const в теле цикла и используйте её в обработчике.`);
+          }
+          ts.forEachChild(child,next=>capture(next,nested));
+        };
+        capture(node.statement);
+      }
       if ((ts.isImportDeclaration(node) || ts.isExportDeclaration(node))
         && node.moduleSpecifier && ts.isStringLiteral(node.moduleSpecifier)
         && node.moduleSpecifier.text === "lualib_bundle") {
