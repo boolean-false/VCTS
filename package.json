@@ -32,7 +32,8 @@
     "kompot:test": "npm run build --prefix integrations/kompot-lens && node tools/test-kompot.cjs",
     "kompot:test:native": "node tools/test-kompot-native.cjs",
     "kompot:plugin:package": "npm run package --prefix integrations/kompot-lens",
-    "kompot:test:vscode": "node tools/test-kompot-vscode.cjs"
+    "kompot:test:vscode": "node tools/test-kompot-vscode.cjs",
+    "test:full": "node tools/test-all.cjs --require-integrations"
   },
   "version": "1.0.0",
   "bin": {
