@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<container size="400,300" position-func="gui.get_viewport()[1]/2-200,gui.get_viewport()[2]/2-150" color="#202630FF">
-    <label id="title" pos="20,18" size="360,32" color="#FFFFFFFF">Накопитель</label>
-    <label id="summary" pos="20,62" size="360,60" color="#D9E3EDFF" multiline="true"/>
-    <panel id="buttons" pos="20,132" size="360,96" color="#00000000" padding="0"/>
-    <button pos="20,244" size="360,36" onclick="close_panel()">Закрыть</button>
-</container>

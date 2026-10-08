@@ -1,8 +1,6 @@
 node_modules/
 build/
-
-integrations/kompot-lens/out/
-integrations/kompot-lens/dist/
-**/__pycache__/
-
+dist/
+.idea/
 .DS_Store
+**/__pycache__/

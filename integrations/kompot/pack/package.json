@@ -1,8 +1,0 @@
-{
-    "id": "kompot",
-    "title": "Kompot",
-    "version": "1.2.2",
-    "creator": "Dagger",
-    "description": "Декларативный UI для VoxelCore",
-    "license": "MPL-2.0"
-}

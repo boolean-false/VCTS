@@ -33,13 +33,13 @@ test('inventory keeps Lua overrides and actual registration contexts',()=>{
 test('new registered library cannot silently disappear from the inventory', t=>{
   const root=fs.mkdtempSync(path.join(os.tmpdir(),'vcts-api-scan-'));
   t.after(()=>fs.rmSync(root,{recursive:true,force:true}));
-  const source=process.env.VC_SOURCES || '/Users/dartyukhov/Desktop/Projects/voxelcore-sources';
+  // Минимальная регистрация проверяет сканер без исходников движка.
   for(const relative of ['src/logic/scripting/lua/lua_engine.cpp','src/logic/scripting/scripting_hud.cpp']) {
     fs.mkdirSync(path.dirname(path.join(root,relative)),{recursive:true});
-    fs.copyFileSync(path.join(source,relative),path.join(root,relative));
+    fs.writeFileSync(path.join(root,relative),'');
   }
   const dir='src/logic/scripting/lua/libs';
-  fs.cpSync(path.join(source,dir),path.join(root,dir),{recursive:true});
+  fs.mkdirSync(path.join(root,dir),{recursive:true});
   fs.writeFileSync(path.join(root,dir,'libnew.cpp'),'const luaL_Reg unknowntestlib[] = {\n {"work", fn},\n {nullptr, nullptr}\n};');
   assert.throws(()=>inventory(root),/Unmapped library registration: unknowntestlib/);
 });

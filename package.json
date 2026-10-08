@@ -3,16 +3,12 @@
   "private": true,
   "description": "TypeScript SDK и инструменты разработки модов и игр для VoxelCore.",
   "scripts": {
-    "check": "tsc --noEmit -p design/tsconfig.json",
+    "check": "node tools/api/check-types.cjs",
     "check:vc-loader": "node tools/check-vc-loader.cjs",
     "build:modules": "node tools/build-modules.cjs",
     "test:modules": "node --test tools/tests/vc-modules.test.cjs",
-    "build:demo": "node tools/build-demo.cjs",
-    "test:demo": "node tools/run-demo.cjs test",
-    "preview:demo": "node tools/run-demo.cjs preview",
-    "play:demo": "node tools/run-demo.cjs play",
     "api:inventory": "node tools/api/inventory.cjs",
-    "api:check": "node tools/api/inventory.cjs --check && node tools/api/check-types.cjs && node --test tools/tests/api-inventory.test.cjs tools/tests/network-wrappers.test.cjs",
+    "api:check": "node tools/api/check-types.cjs && node --test tools/tests/api-inventory.test.cjs tools/tests/network-wrappers.test.cjs",
     "api:test": "node tools/api/test-engine.cjs",
     "api:test:network": "node tools/api/test-network.cjs",
     "api:test:generation": "node tools/api/test-generation.cjs",
@@ -21,21 +17,11 @@
     "test": "node tools/test-all.cjs",
     "api:test:author": "node tools/api/test-author.cjs",
     "test:project": "node --test tools/tests/vcts-project.test.cjs",
-    "railcore:build": "node tools/railcore-types.cjs && node tools/vcts.cjs build examples/railcore/vcts.config.json",
-    "railcore:test": "node tools/test-railcore.cjs",
-    "signals:build": "node tools/vcts.cjs build examples/rail-signals/vcts.config.json",
-    "signals:test": "node tools/test-rail-signals.cjs",
-    "signals:preview": "node tools/test-rail-signals.cjs --visual",
-    "kompot:types": "node tools/kompot-types.cjs",
-    "kompot:build": "node tools/kompot-types.cjs && node tools/vcts.cjs build examples/kompot/vcts.config.json",
-    "kompot:setup": "npm ci --ignore-scripts --prefix integrations/kompot-lens",
-    "kompot:test": "npm run build --prefix integrations/kompot-lens && node tools/test-kompot.cjs",
-    "kompot:test:native": "node tools/test-kompot-native.cjs",
-    "kompot:plugin:package": "npm run package --prefix integrations/kompot-lens",
-    "kompot:test:vscode": "node tools/test-kompot-vscode.cjs",
-    "test:full": "node tools/test-all.cjs --require-integrations"
+    "api:audit": "node tools/api/inventory.cjs --check",
+    "release:build": "node tools/release.cjs",
+    "release:check": "node tools/check-release.cjs"
   },
-  "version": "1.0.0",
+  "version": "1.0.0-beta.1",
   "bin": {
     "vcts": "tools/vcts.cjs"
   },
@@ -44,5 +30,9 @@
     "typescript": "6.0.2",
     "typescript-to-lua": "1.37.1",
     "source-map": "0.7.6"
-  }
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "license": "MIT"
 }

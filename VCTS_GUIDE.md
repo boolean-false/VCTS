@@ -46,7 +46,7 @@ npm test
 Подключите папку обычного контент-пака, а не его исходный TS-проект:
 
 ```sh
-npm exec -- vcts add "/path/to/game/content/rail_core"
+npm exec -- vcts add "/path/to/game/content/library_pack"
 ```
 
 Команда добавляет корневую `dependencies`, зависимость собственных паков и
@@ -54,11 +54,11 @@ npm exec -- vcts add "/path/to/game/content/rail_core"
 не обновился, перезапустите его TypeScript service. Код:
 
 ```ts
-import * as rails from "rail_core:api";
-const carts = rails.get_carts();
+import * as library from "library_pack:api";
+const items = library.get_items();
 ```
 
-Lua-результат использует `require("rail_core:api")`. Исходники зависимости
+Lua-результат использует `require("library_pack:api")`. Исходники зависимости
 не нужны и в вашу сборку не входят. В игре должны быть подключены оба пака.
 При `npm test` VCTS копирует готовую зависимость только во временный тестовый
 проект; установленный мод и локальная сборка остаются отдельными.
@@ -157,23 +157,3 @@ npm exec -- vcts explain vcts.config.json /path/to/error.log
 сборке. При недостатке API зависимости сначала сформулируйте отсутствующий
 контракт, вместо скрытого обращения к её внутренностям. Подробные правила Scope,
 Store, callbacks и lifetime находятся в поставляемом `vendor/sdk/AUTHORING.md`.
-
-## Kompot на TypeScript
-
-Для декларативного UI подключите готовый пак с TS-типами:
-`vcts add /путь/к/vcts/integrations/kompot/pack`.
-Пример находится в `examples/kompot`: компоненты, State, формы, эффекты,
-списки и жизненный цикл XML-экрана. Не нужно переписывать Kompot на TS.
-
-Kompot Lens 0.15.0 поддерживает TS-превью в VSCode. Найдите toolchain
-через зависимости проекта или настройку `kompot.vctsPath`. Режим `live`
-отрисовывает несохранённые изменения существующих TS-файлов; новые файлы
-сначала сохраните. TypeScript API описан публичными аннотациями Kompot;
-динамические экспорты могут потребовать дополнительных деклараций.
-
-## Постепенный перенос с Lua
-
-В `assets` можно задать `exclude`: список файлов или папок относительно `from`.
-Например, `{"from":"content/raid","to":"content/raid","exclude":["package.json","modules/movement.lua"]}`
-копирует ресурсы пака и оставляет место для скомпилированного TS-модуля.
-Исключение папки действует на всё её содержимое. Шаблоны путей не поддерживаются.

@@ -46,7 +46,7 @@ npm test
 Подключите папку обычного контент-пака, а не его исходный TS-проект:
 
 ```sh
-npm exec -- vcts add "/path/to/game/content/rail_core"
+npm exec -- vcts add "/path/to/game/content/library_pack"
 ```
 
 Команда добавляет корневую `dependencies`, зависимость собственных паков и
@@ -54,11 +54,11 @@ npm exec -- vcts add "/path/to/game/content/rail_core"
 не обновился, перезапустите его TypeScript service. Код:
 
 ```ts
-import * as rails from "rail_core:api";
-const carts = rails.get_carts();
+import * as library from "library_pack:api";
+const items = library.get_items();
 ```
 
-Lua-результат использует `require("rail_core:api")`. Исходники зависимости
+Lua-результат использует `require("library_pack:api")`. Исходники зависимости
 не нужны и в вашу сборку не входят. В игре должны быть подключены оба пака.
 При `npm test` VCTS копирует готовую зависимость только во временный тестовый
 проект; установленный мод и локальная сборка остаются отдельными.

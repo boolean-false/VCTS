@@ -3,11 +3,13 @@ const path = require('node:path');
 const crypto = require('node:crypto');
 const ts = require('typescript');
 const project = path.resolve(__dirname, '../..');
-const engine = process.env.VC_SOURCES || '/Users/dartyukhov/Desktop/Projects/voxelcore-sources';
+const engine = process.env.VC_SOURCES;
 const hash = text => crypto.createHash('sha256').update(text).digest('hex');
 const lineAt = (text, index) => text.slice(0, index).split('\n').length;
 
 function inventory(root = engine) {
+  // Для обычных проверок достаточно поставляемого описания API.
+  if (!root) return JSON.parse(fs.readFileSync(path.join(project, 'sdk/api/inventory.json'), 'utf8'));
   const sources = new Map();
   const read = file => {
     const text = fs.readFileSync(path.join(root, file), 'utf8');
@@ -253,6 +255,11 @@ function report(data) {
   // Explicit aliases discovered by source audit; these are not C++ exports.
   const aliases = JSON.parse(fs.readFileSync(path.join(project,'sdk/api/aliases.json'),'utf8'));
   for (const alias of aliases) {
+    if (!engine) {
+      const saved = data.symbols.find(symbol => symbol.id === alias.id);
+      if (!saved || saved.file !== alias.file || saved.anchor !== alias.anchor) throw new Error(`Несовместимая инвентаризация: ${alias.id}`);
+      continue;
+    }
     if (ids.has(alias.id)) throw new Error(`Redundant alias: ${alias.id}`);
     const text = fs.readFileSync(path.join(engine,alias.file),'utf8');
     if (!text.includes(alias.anchor)) throw new Error(`Alias anchor changed: ${alias.id}`);
@@ -297,6 +304,7 @@ function report(data) {
   return {data,markdown:lines.join('\n')};
 }
 if(require.main===module) {
+  if(!engine) throw new Error('Для аудита исходников задайте VC_SOURCES. Для проверки SDK используйте npm run api:check.');
   const result=report(inventory());
   const outputs={'sdk/api/inventory.json':JSON.stringify(result.data,null,2)+'\n','sdk/api/COVERAGE.md':result.markdown};
   for(const [file,text] of Object.entries(outputs)) {

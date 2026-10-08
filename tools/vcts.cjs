@@ -34,15 +34,6 @@ async function main(args=process.argv.slice(2)) {
   if(!args.length&&process.stdin.isTTY&&process.stdout.isTTY)return require('./vcts-tui.cjs').launchTui();
   const command=args[0]||'help';
   if(command==='ui')return require('./vcts-tui.cjs').launchTui();
-  if(command==='preview') {
-    const option=name=>{const i=args.indexOf(name);return i>=0?args[i+1]:undefined;};
-    if(!args[1])throw new Error('Use vcts preview <source.ts> [--config config.json] [--overlays overrides.json]');
-    const source=path.resolve(args[1]);
-    const config=path.resolve(option('--config')||'vcts.config.json');
-    const sourceOverrides=option('--overlays')?JSON.parse(fs.readFileSync(option('--overlays'),'utf8')):[];
-    if(!Array.isArray(sourceOverrides)||sourceOverrides.some(item=>!item||typeof item.file!=='string'||typeof item.text!=='string'))throw new Error('overlays must be an array of {file,text}');
-    console.log(JSON.stringify(await require('./kompot-preview.cjs').preparePreview(config,source,{sourceOverrides})));return;
-  }
   if(command==='init') {
     const destination=args[1];if(!destination)throw new Error('Destination required');
     const option=name=>{const i=args.indexOf(name);return i>=0?args[i+1]:undefined;};
@@ -57,7 +48,7 @@ async function main(args=process.argv.slice(2)) {
     else {const pack=connectDependency(config,folder,{types:option('--types'),module:option('--module')||'api',resources:args.includes('--resources')});console.log(`Connected ${pack.id}: ${pack.dir}\nImports: ${pack.modules.map(m=>m.id).join(', ')||'(content only)'}`);}
     return;
   }
-  if(['help','--help','-h'].includes(command)){console.log('vcts — интерактивное меню в терминале\nvcts ui — открыть меню явно\nvcts preview <source.ts> [--config config.json] [--overlays overrides.json]\nvcts init <directory> [--kind mod|game] [--id pack]\nvcts build|check|watch|test [vcts.config.json]\nvcts add|types <pack-folder> [--config config.json] [--types api.d.ts] [--module api] [--resources]\nvcts explain <config.json> <log.txt>\nvcts inspect [config.json] [pack:module]');return;}
+  if(['help','--help','-h'].includes(command)){console.log('vcts — интерактивное меню в терминале\nvcts ui — открыть меню явно\nvcts init <directory> [--kind mod|game] [--id pack]\nvcts build|check|watch|test [vcts.config.json]\nvcts add|types <pack-folder> [--config config.json] [--types api.d.ts] [--module api] [--resources]\nvcts explain <config.json> <log.txt>\nvcts inspect [config.json] [pack:module]');return;}
   const configFile=path.resolve(args[1]||'vcts.config.json');
   if(command==='explain') {
     if(!args[2])throw new Error('Use vcts explain config.json log.txt');

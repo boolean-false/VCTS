@@ -9,6 +9,6 @@
     "test": "vcts test"
   },
   "devDependencies": {
-    "@vcts/toolchain": "file:/Users/dartyukhov/Desktop/Projects/vcts"
+    "@vcts/toolchain": "file:../.."
   }
 }

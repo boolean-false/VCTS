@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<container
-    id="root"
-    color="#00000000"
-    position-func="0,0"
-    size-func="unpack(gui.get_viewport())"
-/>

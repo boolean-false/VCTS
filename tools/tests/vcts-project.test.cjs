@@ -207,8 +207,8 @@ test('project entry loads modules before content and receives the application AP
   assert(result.outputs.has('modules/loading.lua.map'));assert(result.outputs.has('modules/__vcts_lualib.lua'));
   assert(!result.outputs.has('content/project/package.json'));assert(!result.outputs.get('project.toml').includes('"project"'));
   const {spawnSync}=require('node:child_process');
-  const engine=process.env.VC_SOURCES||'/Users/dartyukhov/Desktop/Projects/voxelcore-sources';
-  const source=fs.readFileSync(path.join(engine,'res/scripts/stdmin.lua'),'utf8');
+  const resources=require('../vc-runtime.cjs').resolveRuntime().resources;
+  const source=fs.readFileSync(path.join(resources,'scripts/stdmin.lua'),'utf8');
   const section=(start,end)=>source.slice(source.indexOf(start),source.indexOf(end,source.indexOf(start)+start.length));
   const quote=value=>{let eq='';while(value.includes(`]${eq}]`))eq+='=';return `[${eq}[${value}]${eq}]`;};
   const sources=[...result.outputs].filter(([name])=>name.endsWith('.lua')).map(([name,code])=>{

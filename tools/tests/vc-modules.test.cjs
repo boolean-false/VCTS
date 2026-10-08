@@ -34,8 +34,8 @@ function luaString(value) {
 }
 
 function runInVcLoader(outputs, assertions) {
-  const engine = process.env.VC_SOURCES || "/Users/dartyukhov/Desktop/Projects/voxelcore-sources";
-  const source = fs.readFileSync(path.join(engine, "res/scripts/stdmin.lua"), "utf8");
+  const resources = require("../vc-runtime.cjs").resolveRuntime().resources;
+  const source = fs.readFileSync(path.join(resources, "scripts/stdmin.lua"), "utf8");
   const section = (start, end) => {
     const a = source.indexOf(start), b = source.indexOf(end, a + start.length);
     assert(a >= 0 && b > a, "VC loader layout changed");
@@ -281,8 +281,8 @@ test('typed UI emits element self calls and native Document metatable dispatch',
       doc.title.destruct();
       return doc.title.text;
     }`);
-  const engine=process.env.VC_SOURCES||'/Users/dartyukhov/Desktop/Projects/voxelcore-sources';
-  const source=fs.readFileSync(path.join(engine,'res/modules/internal/gui_util.lua'),'utf8');
+  const resources=require('../vc-runtime.cjs').resolveRuntime().resources;
+  const source=fs.readFileSync(path.join(resources,'modules/internal/gui_util.lua'),'utf8');
   runInVcLoader(f.build().outputs,`
     local attributes={}
     local destroyed=false

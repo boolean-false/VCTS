@@ -1,7 +1,0 @@
-app.config_packs({"rail_client"})
-app.new_world("external-api-test","42","core:default")
-assert(require("rail_client:world").probe()>0,"external RailCore path API")
-assert(pack.is_installed("rail_core"),"dependency loaded")
-file.write("world:probe.json",json.tostring({cases={"ready RailCore Lua API","dependency loaded"}}))
-app.close_world(true)
-print("VCTS_EXTERNAL_PASS")

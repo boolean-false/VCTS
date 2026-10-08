@@ -10,4 +10,4 @@ for(const name of ['headless','client','app','app-client','common','generator','
   const errors=ts.getPreEmitDiagnostics(program);
   if(errors.length) throw new Error(ts.formatDiagnosticsWithColorAndContext(errors,host));
 }
-console.log('PASS: 6 isolated API profiles and author contracts, including negative type/availability checks');
+console.log('Проверены 6 отдельных профилей API и авторский слой, включая ожидаемые ошибки типов.');

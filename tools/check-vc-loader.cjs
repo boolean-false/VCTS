@@ -7,9 +7,9 @@ const { spawnSync } = require("node:child_process");
 const ts = require("typescript");
 const tstl = require("typescript-to-lua");
 
-const engineRoot = process.env.VC_SOURCES
-  || "/Users/dartyukhov/Desktop/Projects/voxelcore-sources";
-const source = fs.readFileSync(path.join(engineRoot, "res/scripts/stdmin.lua"), "utf8");
+// Читаем ресурсы установленного движка без изменения файлов.
+const resources = require('./vc-runtime.cjs').resolveRuntime().resources;
+const source = fs.readFileSync(path.join(resources, "scripts/stdmin.lua"), "utf8");
 
 function section(start, end) {
   const from = source.indexOf(start);

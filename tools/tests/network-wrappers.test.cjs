@@ -3,11 +3,11 @@ const assert=require('node:assert/strict');
 const fs=require('node:fs');
 const path=require('node:path');
 const {spawnSync}=require('node:child_process');
-const sourceRoot=process.env.VC_SOURCES || '/Users/dartyukhov/Desktop/Projects/voxelcore-sources';
+const sourceRoot=require('../vc-runtime.cjs').resolveRuntime().resources;
 function quote(value) {let marks='';while(value.includes(`]${marks}]`))marks+='=';return `[${marks}[${value}]${marks}]`;}
 function wrappers(assertions) {
-  const classes=fs.readFileSync(path.join(sourceRoot,'res/scripts/classes.lua'),'utf8');
-  const tables=fs.readFileSync(path.join(sourceRoot,'res/modules/internal/extensions/table.lua'),'utf8');
+  const classes=fs.readFileSync(path.join(sourceRoot,'scripts/classes.lua'),'utf8');
+  const tables=fs.readFileSync(path.join(sourceRoot,'modules/internal/extensions/table.lua'),'utf8');
   const code=`
 local requests, queue = {}, {}
 cameras = {}
